@@ -31,6 +31,9 @@ public class Pickupable : MonoBehaviour
         var goHolder = holdParent.transform.Find("GameObjectHolder");
         transform.SetParent(goHolder);
 
+        // Play PickUp sound
+        AudioManager.Instance.Play("PickUp");
+
         // Reset local position/rotation so it lines up nicely
         transform.localPosition = Vector3.zero;
         transform.localRotation = Quaternion.identity;
