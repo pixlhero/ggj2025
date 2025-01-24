@@ -152,10 +152,8 @@ public class FirstPersonController : MonoBehaviour
         readyToJump = true;
     }
 
-    /// <summary>
     /// Attempts to pick up an object if none is held,
     /// or drops the currently held object if we're already holding something.
-    /// </summary>
     private void TryPickupOrDrop()
     {
         // If we're holding an object, drop it
