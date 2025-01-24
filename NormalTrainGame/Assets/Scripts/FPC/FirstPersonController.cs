@@ -1,78 +1,66 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 
 public class FirstPersonController : MonoBehaviour
 {
     [Header("Movement")]
-    [Tooltip("Current move speed, will switch between walkSpeed and sprintSpeed at runtime")]
-    public float moveSpeed;
-    
-    [Tooltip("Drag applied when on the ground")]
+    float moveSpeed;
     public float groundDrag;
-    
-    [Tooltip("Force applied when jumping")]
     public float jumpForce;
-    
-    [Tooltip("Time between jumps")]
     public float jumpCooldown;
-    
-    [Tooltip("Multiplier for movement in air")]
     public float airMultiplier;
-    
-    private bool readyToJump = true;
+    bool readyToJump = true;
 
     [Header("Movement Speeds")]
-    [Tooltip("Speed while walking")]
     public float walkSpeed = 6f;
-    
-    [Tooltip("Speed while sprinting")]
     public float sprintSpeed = 12f;
 
     [Header("Keybinds")]
-    [Tooltip("Key used to jump")]
     public KeyCode jumpKey = KeyCode.Space;
-    
-    [Tooltip("Key used to sprint")]
     public KeyCode sprintKey = KeyCode.LeftShift;
+    [Tooltip("Key used to pick up and drop objects")]
+    public KeyCode interactKey = KeyCode.E;
 
     [Header("Ground Check")]
-    [Tooltip("Height of the player capsule")]
     public float playerHeight = 2f;
-    
-    [Tooltip("Which layers are considered ground")]
     public LayerMask whatIsGround;
-    
-    private bool grounded;
+    bool grounded;
 
-    [Tooltip("Transform for orientation (usually the player camera or empty object)")]
+    [Header("Orientation")]
+    [Tooltip("Usually an empty gameobject or the camera pivot that indicates forward direction.")]
     public Transform orientation;
 
-    private float horizontalInput;
-    private float verticalInput;
-    private Vector3 moveDirection;
+    [Header("Pickup System")]
+    [Tooltip("Camera used for raycasting; drag your main camera here.")]
+    public Camera playerCam;
+    [Tooltip("Point where held objects will be placed (child of camera or player).")]
+    public Transform holdPoint;
+    [Tooltip("How far we can reach to pick up objects.")]
+    public float pickupRange = 3f;
 
-    private Rigidbody rb;
+    private Pickupable currentlyHeldObject;
+
+    float horizontalInput;
+    float verticalInput;
+    Vector3 moveDirection;
+
+    Rigidbody rb;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
-        
-        // Ensure we start at walking speed
+
+        // Start at walking speed by default
         moveSpeed = walkSpeed;
     }
 
     private void Update()
     {
         // Ground check
-        grounded = Physics.Raycast(
-            transform.position, 
-            Vector3.down, 
-            playerHeight * 0.5f + 0.3f, 
-            whatIsGround
-        );
+        grounded = Physics.Raycast(transform.position, Vector3.down,
+                                   playerHeight * 0.5f + 0.3f, whatIsGround);
 
         MyInput();
         HandleSprinting();
@@ -83,6 +71,12 @@ public class FirstPersonController : MonoBehaviour
             rb.linearDamping = groundDrag;
         else
             rb.linearDamping = 0;
+
+        // Check for pickup/drop input
+        if (Input.GetKeyDown(interactKey))
+        {
+            TryPickupOrDrop();
+        }
     }
 
     private void FixedUpdate()
@@ -95,7 +89,7 @@ public class FirstPersonController : MonoBehaviour
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
 
-        // When to jump
+        // Jump
         if (Input.GetKey(jumpKey) && readyToJump && grounded)
         {
             readyToJump = false;
@@ -104,26 +98,19 @@ public class FirstPersonController : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Checks whether the sprint key is held down and adjusts moveSpeed accordingly.
-    /// </summary>
     private void HandleSprinting()
     {
+        // Switch between walk speed and sprint speed
         if (Input.GetKey(sprintKey) && grounded)
         {
-            // Set to sprint speed
             moveSpeed = sprintSpeed;
         }
         else
         {
-            // Set to walk speed
             moveSpeed = walkSpeed;
         }
     }
 
-    /// <summary>
-    /// Applies forces to the Rigidbody to move the player.
-    /// </summary>
     private void MovePlayer()
     {
         // Calculate movement direction
@@ -132,23 +119,14 @@ public class FirstPersonController : MonoBehaviour
         // On ground
         if (grounded)
         {
-            rb.AddForce(
-                moveDirection.normalized * moveSpeed * 10f, 
-                ForceMode.Force
-            );
+            rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
         }
         else // In air
         {
-            rb.AddForce(
-                moveDirection.normalized * moveSpeed * 10f * airMultiplier,
-                ForceMode.Force
-            );
+            rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
         }
     }
 
-    /// <summary>
-    /// Ensures the player does not exceed the current moveSpeed (walk or sprint).
-    /// </summary>
     private void SpeedControl()
     {
         Vector3 flatVel = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
@@ -161,12 +139,9 @@ public class FirstPersonController : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Applies an upward force to perform a jump.
-    /// </summary>
     private void Jump()
     {
-        // Reset Y velocity for a consistent jump
+        // Reset y velocity so jump is consistent
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
 
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
@@ -175,5 +150,33 @@ public class FirstPersonController : MonoBehaviour
     private void ResetJump()
     {
         readyToJump = true;
+    }
+
+    /// <summary>
+    /// Attempts to pick up an object if none is held,
+    /// or drops the currently held object if we're already holding something.
+    /// </summary>
+    private void TryPickupOrDrop()
+    {
+        // If we're holding an object, drop it
+        if (currentlyHeldObject != null)
+        {
+            currentlyHeldObject.OnDrop();
+            currentlyHeldObject = null;
+        }
+        else
+        {
+            // Attempt to pick up
+            Ray ray = new Ray(playerCam.transform.position, playerCam.transform.forward);
+            if (Physics.Raycast(ray, out RaycastHit hit, pickupRange))
+            {
+                Pickupable pickupable = hit.transform.GetComponent<Pickupable>();
+                if (pickupable != null)
+                {
+                    currentlyHeldObject = pickupable;
+                    pickupable.OnPickUp(holdPoint);
+                }
+            }
+        }
     }
 }
