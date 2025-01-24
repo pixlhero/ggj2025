@@ -3,55 +3,82 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class FirstPersonController: MonoBehaviour
+public class FirstPersonController : MonoBehaviour
 {
     [Header("Movement")]
+    [Tooltip("Current move speed, will switch between walkSpeed and sprintSpeed at runtime")]
     public float moveSpeed;
-
+    
+    [Tooltip("Drag applied when on the ground")]
     public float groundDrag;
-
+    
+    [Tooltip("Force applied when jumping")]
     public float jumpForce;
+    
+    [Tooltip("Time between jumps")]
     public float jumpCooldown;
+    
+    [Tooltip("Multiplier for movement in air")]
     public float airMultiplier;
-    bool readyToJump;
+    
+    private bool readyToJump = true;
 
-    [HideInInspector] public float walkSpeed;
-    [HideInInspector] public float sprintSpeed;
+    [Header("Movement Speeds")]
+    [Tooltip("Speed while walking")]
+    public float walkSpeed = 6f;
+    
+    [Tooltip("Speed while sprinting")]
+    public float sprintSpeed = 12f;
 
     [Header("Keybinds")]
+    [Tooltip("Key used to jump")]
     public KeyCode jumpKey = KeyCode.Space;
+    
+    [Tooltip("Key used to sprint")]
+    public KeyCode sprintKey = KeyCode.LeftShift;
 
     [Header("Ground Check")]
-    public float playerHeight;
+    [Tooltip("Height of the player capsule")]
+    public float playerHeight = 2f;
+    
+    [Tooltip("Which layers are considered ground")]
     public LayerMask whatIsGround;
-    bool grounded;
+    
+    private bool grounded;
 
+    [Tooltip("Transform for orientation (usually the player camera or empty object)")]
     public Transform orientation;
 
-    float horizontalInput;
-    float verticalInput;
+    private float horizontalInput;
+    private float verticalInput;
+    private Vector3 moveDirection;
 
-    Vector3 moveDirection;
-
-    Rigidbody rb;
+    private Rigidbody rb;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
-
-        readyToJump = true;
+        
+        // Ensure we start at walking speed
+        moveSpeed = walkSpeed;
     }
 
     private void Update()
     {
-        // ground check
-        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.3f, whatIsGround);
+        // Ground check
+        grounded = Physics.Raycast(
+            transform.position, 
+            Vector3.down, 
+            playerHeight * 0.5f + 0.3f, 
+            whatIsGround
+        );
 
         MyInput();
+        HandleSprinting();
         SpeedControl();
 
-        // handle drag
+        // Handle drag
         if (grounded)
             rb.linearDamping = groundDrag;
         else
@@ -68,36 +95,65 @@ public class FirstPersonController: MonoBehaviour
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
 
-        // when to jump
+        // When to jump
         if (Input.GetKey(jumpKey) && readyToJump && grounded)
         {
             readyToJump = false;
-
             Jump();
-
             Invoke(nameof(ResetJump), jumpCooldown);
         }
     }
 
-    private void MovePlayer()
+    /// <summary>
+    /// Checks whether the sprint key is held down and adjusts moveSpeed accordingly.
+    /// </summary>
+    private void HandleSprinting()
     {
-        // calculate movement direction
-        moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
-
-        // on ground
-        if (grounded)
-            rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
-
-        // in air
-        else if (!grounded)
-            rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
+        if (Input.GetKey(sprintKey) && grounded)
+        {
+            // Set to sprint speed
+            moveSpeed = sprintSpeed;
+        }
+        else
+        {
+            // Set to walk speed
+            moveSpeed = walkSpeed;
+        }
     }
 
+    /// <summary>
+    /// Applies forces to the Rigidbody to move the player.
+    /// </summary>
+    private void MovePlayer()
+    {
+        // Calculate movement direction
+        moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
+
+        // On ground
+        if (grounded)
+        {
+            rb.AddForce(
+                moveDirection.normalized * moveSpeed * 10f, 
+                ForceMode.Force
+            );
+        }
+        else // In air
+        {
+            rb.AddForce(
+                moveDirection.normalized * moveSpeed * 10f * airMultiplier,
+                ForceMode.Force
+            );
+        }
+    }
+
+    /// <summary>
+    /// Ensures the player does not exceed the current moveSpeed (walk or sprint).
+    /// </summary>
     private void SpeedControl()
     {
         Vector3 flatVel = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
 
-        // limit velocity if needed
+        // Limit velocity if needed
         if (flatVel.magnitude > moveSpeed)
         {
             Vector3 limitedVel = flatVel.normalized * moveSpeed;
@@ -105,13 +161,17 @@ public class FirstPersonController: MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Applies an upward force to perform a jump.
+    /// </summary>
     private void Jump()
     {
-        // reset y velocity
+        // Reset Y velocity for a consistent jump
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
 
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
     }
+
     private void ResetJump()
     {
         readyToJump = true;
