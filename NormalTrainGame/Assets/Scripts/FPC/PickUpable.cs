@@ -28,7 +28,8 @@ public class Pickupable : MonoBehaviour
         pickUpableObj.GetComponent<Collider>().enabled = false;
 
         // Parent to the holdParent
-        transform.SetParent(holdParent);
+        var goHolder = holdParent.transform.Find("GameObjectHolder");
+        transform.SetParent(goHolder);
 
         // Reset local position/rotation so it lines up nicely
         transform.localPosition = Vector3.zero;
