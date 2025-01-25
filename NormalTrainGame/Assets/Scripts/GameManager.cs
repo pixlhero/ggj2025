@@ -37,7 +37,9 @@ public class GameManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        // add ambience
         AudioManager.Instance.PlayLoopingSound("AmbianceTrain");
+        AudioManager.Instance.StartRandomInterval("Yamanote");
         
         gameState = GameState.INTRO;
         FindFirstObjectByType<IntroManager>().StartIntro();

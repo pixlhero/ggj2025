@@ -532,7 +532,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: AmbianceTrain
     clip: {fileID: 8300000, guid: 370e52593f1674a2d9f39d19c9991772, type: 3}
-    volume: 0.5
+    volume: 0.7
     pitch: 1
     loop: 0
     source: {fileID: 0}
@@ -563,6 +563,12 @@ MonoBehaviour:
   - name: DampThud
     clip: {fileID: 8300000, guid: 72507e43817c04aa48f4bd9f142c2364, type: 3}
     volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Yamanote
+    clip: {fileID: 8300000, guid: dad608d33761246e7b20a97c426f1821, type: 3}
+    volume: 0.1
     pitch: 1
     loop: 0
     source: {fileID: 0}
