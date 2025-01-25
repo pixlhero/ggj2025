@@ -5,6 +5,8 @@ public class UIManager : MonoBehaviour
 
     public static UIManager Instance;
 
+    public GameObject pickupHint;
+
     private void Awake()
     {
         // Enforce singleton pattern
