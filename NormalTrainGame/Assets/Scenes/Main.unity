@@ -895,6 +895,7 @@ MonoBehaviour:
   scoreText: {fileID: 572632631}
   timeLeft: {fileID: 659127626}
   timeUI: {fileID: 247107003}
+  middleDot: {fileID: 8455241960349104802}
   score: 0
   secondsLeft: 0
 --- !u!4 &1987257137
@@ -1257,6 +1258,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d1eb47a80caa446f95835f9ce2a367b, type: 3}
+--- !u!1 &8455241960349104802 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8136883336554171356, guid: 7d1eb47a80caa446f95835f9ce2a367b, type: 3}
+  m_PrefabInstance: {fileID: 8455241960349104801}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -68,7 +68,9 @@ public class Pickupable : MonoBehaviour
         if (holdParent != null)
         {
             // Apply an impulse force in front of the player
-            rb.AddForce(holdParent.forward * throwForce, ForceMode.Impulse);
+            var throwDirection = holdParent.forward + holdParent.up * 0.4f;
+            throwDirection.Normalize();
+            rb.AddForce(throwDirection * throwForce, ForceMode.Impulse);
         }
     }
 

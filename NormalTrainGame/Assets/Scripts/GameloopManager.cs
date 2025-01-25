@@ -14,6 +14,8 @@ public class GameloopManager : MonoBehaviour
     public TMP_Text timeLeft;
     
     public GameObject timeUI;
+    
+    public GameObject middleDot;
 
     public int score;
     
@@ -39,6 +41,7 @@ public class GameloopManager : MonoBehaviour
     {
         timeUI.SetActive(false);
         scoreUI.SetActive(false);
+        middleDot.SetActive(false);
         scoreText.text = "Babies Left: " + maxBabies;
     }
     
@@ -55,6 +58,7 @@ public class GameloopManager : MonoBehaviour
             scoreUI.SetActive(false);
             secondsLeft = 0;
             timeUI.SetActive(false);
+            middleDot.SetActive(false);
         }
     }
     
@@ -64,6 +68,8 @@ public class GameloopManager : MonoBehaviour
         secondsLeft = 10;
         
         timeUI.SetActive(true);
+        
+        middleDot.SetActive(true);
     }
 
     public void ResetScore()
