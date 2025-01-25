@@ -1248,10 +1248,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -1338380321909843401, guid: d6acd79193a6f441c91bb17af6cba925, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 477d1532449cb4adb824d1e911b4d3fa, type: 2}
     - target: {fileID: 919132149155446097, guid: d6acd79193a6f441c91bb17af6cba925, type: 3}
       propertyPath: m_Name
       value: Train
       objectReference: {fileID: 0}
+    - target: {fileID: 4318936240630360540, guid: d6acd79193a6f441c91bb17af6cba925, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: fcc585f09b127470db5d9e0744ebaf02, type: 2}
+    - target: {fileID: 4669105905402887928, guid: d6acd79193a6f441c91bb17af6cba925, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 7ccf13bc0ee974e9484f5074d6a3b47d, type: 2}
+    - target: {fileID: 8369860327332933072, guid: d6acd79193a6f441c91bb17af6cba925, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 0644a958623ff40afa77937529e3e5d1, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
