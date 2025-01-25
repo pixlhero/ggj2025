@@ -65,6 +65,13 @@ public class FirstPersonController : MonoBehaviour
 
     Rigidbody rb;
 
+    // --- NEW: Subway Camera Shake Fields ---
+    [Header("Subway Camera Shake")]
+    public bool enableCameraShake = true;    // Toggle shake on/off in Inspector
+    public float shakeIntensity = 0.02f;     // How strong the shake is
+    public float shakeSpeed = 1.5f;          // How fast the shake oscillates
+    private Vector3 camDefaultLocalPos;      // To store the camera’s original local position
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -77,6 +84,12 @@ public class FirstPersonController : MonoBehaviour
         if (holdPoint != null)
         {
             holdPointDefaultLocalPos = holdPoint.localPosition;
+        }
+
+        // Cache the camera's default local position ---
+        if (playerCam != null)
+        {
+            camDefaultLocalPos = playerCam.transform.localPosition;
         }
     }
 
@@ -103,7 +116,6 @@ public class FirstPersonController : MonoBehaviour
         }
 
         // Check if showing the pickup hint
-        // I know this is kind of doppelt gemoppelt from the TryPickupOrDrop method,but whatever
         if (currentlyHeldObject != null)
         {
             UIManager.Instance.pickupHint.SetActive(false);
@@ -131,6 +143,9 @@ public class FirstPersonController : MonoBehaviour
 
         // Update the weapon bobbing
         WeaponBobbing();
+
+        // Subway Camera Shake
+        SubwayCameraShake();
 
         // Update footstep logic
         HandleFootsteps();
@@ -209,8 +224,6 @@ public class FirstPersonController : MonoBehaviour
         readyToJump = true;
     }
 
-    /// Attempts to pick up an object if none is held,
-    /// or drops the currently held object if we're already holding something.
     private void TryPickupOrDrop()
     {
         // If we're holding an object, drop it
@@ -272,9 +285,6 @@ public class FirstPersonController : MonoBehaviour
         holdPoint.localPosition = newLocalPos;
     }
 
-    /// <summary>
-    /// Plays footstep sounds based on how often the player is moving on the ground.
-    /// </summary>
     private void HandleFootsteps()
     {
         // If not on the ground, reset timer and do nothing
@@ -312,5 +322,20 @@ public class FirstPersonController : MonoBehaviour
                 AudioManager.Instance.Play("FootStep2");
             }
         }
+    }
+
+    // Subway Camera Shake Method ---
+    private void SubwayCameraShake()
+    {
+        if (!enableCameraShake || playerCam == null)
+            return;
+
+        // Generate Perlin Noise offsets (smooth, natural rumble)
+        float xOffset = (Mathf.PerlinNoise(Time.time * shakeSpeed, 0f) - 0.5f) * shakeIntensity;
+        float yOffset = (Mathf.PerlinNoise(0f, Time.time * shakeSpeed) - 0.5f) * shakeIntensity;
+
+        // Apply them to the camera's default position
+        Vector3 newLocalPos = camDefaultLocalPos + new Vector3(xOffset, yOffset, 0f);
+        playerCam.transform.localPosition = newLocalPos;
     }
 }
