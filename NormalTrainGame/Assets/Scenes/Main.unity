@@ -668,6 +668,12 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     source: {fileID: 0}
+  - name: DampThud
+    clip: {fileID: 8300000, guid: 72507e43817c04aa48f4bd9f142c2364, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
   announcerSounds:
   - name: FirstBlood
     clip: {fileID: 8300000, guid: 2f55c02bc35bb48379fe34797499eef6, type: 3}
