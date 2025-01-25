@@ -119,7 +119,7 @@ public class FirstPersonController : MonoBehaviour
         // Check if showing the pickup hint
         if (currentlyHeldObject != null)
         {
-            UIManager.Instance.pickupHint.SetActive(false);
+            UIManager.Instance.SetPickupHintInactive();
         }
         else
         {
@@ -129,16 +129,16 @@ public class FirstPersonController : MonoBehaviour
             {
                 if (hit.transform.GetComponent<Pickupable>() != null || hit.transform.GetComponent<DoorInteractible>() != null)
                 {
-                    UIManager.Instance.pickupHint.SetActive(true);
+                    UIManager.Instance.SetPickupHintActive(hit.transform.gameObject);
                 }
                 else
                 {
-                    UIManager.Instance.pickupHint.SetActive(false);
+                    UIManager.Instance.SetPickupHintInactive();
                 }
             }
             else
             {
-                UIManager.Instance.pickupHint.SetActive(false);
+                UIManager.Instance.SetPickupHintInactive();
             }
         }
 

@@ -6,6 +6,9 @@ public class DoorInteractible : MonoBehaviour
 {
     [SerializeField] private float slideDistance = 1f;
     [SerializeField] private float slideDuration = 1f;
+    
+    public int miniumScore = 0;
+    public bool alwaysLocked = false;
 
     private bool _isDoorOpen = false;
     private Vector3 _closedPosition;
@@ -21,6 +24,11 @@ public class DoorInteractible : MonoBehaviour
     {
         if (!_isDoorOpen)
         {
+            if(GameloopManager.Instance.score < miniumScore || alwaysLocked)
+            {
+                return;
+            }
+
             // Slide the door to the right by slideDistance
             transform.DOMove(_closedPosition + new Vector3(0f, 0f, slideDistance), slideDuration);
             _isDoorOpen = true;
