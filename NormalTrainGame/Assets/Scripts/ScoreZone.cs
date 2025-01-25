@@ -11,6 +11,7 @@ public class ScoreZone : MonoBehaviour
         {
             GameloopManager.Instance.AddScore(1);
             FindFirstObjectByType<IntroManager>().ThrownBaby();
+            Destroy(other.gameObject);
         }
     }
 }
