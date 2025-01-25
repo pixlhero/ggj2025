@@ -158,7 +158,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2648285700277563895}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 4ddf255cf1f864a6486603441650a2f1, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -673,3 +673,6 @@ MonoBehaviour:
   bobbingAmount: 0.1
   bobReturnSpeed: 5
   footstepInterval: 0.5
+  enableCameraShake: 1
+  shakeIntensity: 0.04
+  shakeSpeed: 0.9

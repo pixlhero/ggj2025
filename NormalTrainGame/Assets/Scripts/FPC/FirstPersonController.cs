@@ -86,7 +86,7 @@ public class FirstPersonController : MonoBehaviour
             holdPointDefaultLocalPos = holdPoint.localPosition;
         }
 
-        // Cache the camera's default local position ---
+        // Cache the camera's default local position
         if (playerCam != null)
         {
             camDefaultLocalPos = playerCam.transform.localPosition;
@@ -113,6 +113,7 @@ public class FirstPersonController : MonoBehaviour
         if (Input.GetKeyDown(interactKey))
         {
             TryPickupOrDrop();
+            TryOpenDoor();
         }
 
         // Check if showing the pickup hint
@@ -126,7 +127,7 @@ public class FirstPersonController : MonoBehaviour
             Ray ray = new Ray(playerCam.transform.position, playerCam.transform.forward);
             if (Physics.Raycast(ray, out RaycastHit hit, pickupRange))
             {
-                if (hit.transform.GetComponent<Pickupable>() != null)
+                if (hit.transform.GetComponent<Pickupable>() != null || hit.transform.GetComponent<DoorInteractible>() != null)
                 {
                     UIManager.Instance.pickupHint.SetActive(true);
                 }
@@ -244,6 +245,18 @@ public class FirstPersonController : MonoBehaviour
                     currentlyHeldObject = pickupable;
                     pickupable.OnPickUp(holdPoint);
                 }
+            }
+        }
+    }
+
+    private void TryOpenDoor() {
+        Ray ray = new Ray(playerCam.transform.position, playerCam.transform.forward);
+        if (Physics.Raycast(ray, out RaycastHit hit, pickupRange))
+        {
+            DoorInteractible door = hit.transform.GetComponent<DoorInteractible>();
+            if (door != null)
+            {
+                door.ToggleDoor();
             }
         }
     }
