@@ -41,6 +41,20 @@ public class FirstPersonController : MonoBehaviour
 
     private Pickupable currentlyHeldObject;
 
+    [Header("Weapon Bobbing")]
+    [Tooltip("Speed of the bobbing effect.")]
+    public float bobbingSpeed = 5f;
+
+    [Tooltip("Vertical amplitude of the bobbing.")]
+    public float bobbingAmount = 0.1f;
+
+    [Tooltip("How quickly the weapon returns to its original position when not moving.")]
+    public float bobReturnSpeed = 5f;
+
+    private float bobTimer = 0f;
+    private Vector3 holdPointDefaultLocalPos;
+
+
     float horizontalInput;
     float verticalInput;
     Vector3 moveDirection;
@@ -54,6 +68,12 @@ public class FirstPersonController : MonoBehaviour
 
         // Start at walking speed by default
         moveSpeed = walkSpeed;
+
+        // Save the default local position of the hold point for bobbing reference
+        if (holdPoint != null)
+        {
+            holdPointDefaultLocalPos = holdPoint.localPosition;
+        }
     }
 
     private void Update()
@@ -77,7 +97,11 @@ public class FirstPersonController : MonoBehaviour
         {
             TryPickupOrDrop();
         }
+
+        // Finally, update the weapon bobbing
+        WeaponBobbing();
     }
+
 
     private void FixedUpdate()
     {
@@ -152,10 +176,8 @@ public class FirstPersonController : MonoBehaviour
         readyToJump = true;
     }
 
-    /// <summary>
     /// Attempts to pick up an object if none is held,
     /// or drops the currently held object if we're already holding something.
-    /// </summary>
     private void TryPickupOrDrop()
     {
         // If we're holding an object, drop it
@@ -179,4 +201,43 @@ public class FirstPersonController : MonoBehaviour
             }
         }
     }
+
+    private void WeaponBobbing()
+    {
+        if (holdPoint == null) return; // Safety check
+
+        // 1) Determine how fast the player is moving on the XZ plane.
+        //    You could also use raw input or compare with a minimum threshold to detect "is walking."
+        float horizontalSpeed = new Vector2(rb.linearVelocity.x, rb.linearVelocity.z).magnitude;
+
+        // 2) If the player is barely moving or is not grounded, reset and return holdPoint to default.
+        if (horizontalSpeed < 0.1f || !grounded)
+        {
+            bobTimer = 0f;
+            // Smoothly lerp back to the original local position
+            holdPoint.localPosition = Vector3.Lerp(
+                holdPoint.localPosition,
+                holdPointDefaultLocalPos,
+                Time.deltaTime * bobReturnSpeed
+            );
+            return;
+        }
+
+        // 3) Increase bobbing timer
+        bobTimer += Time.deltaTime * bobbingSpeed;
+
+        // 4) Use Sin wave for vertical offset
+        float waveSlice = Mathf.Sin(bobTimer);
+        float verticalOffset = waveSlice * bobbingAmount;
+
+        // 5) Apply the offset to holdPoint; only adjusting the y-position here
+        Vector3 newLocalPos = new Vector3(
+            holdPointDefaultLocalPos.x,
+            holdPointDefaultLocalPos.y + verticalOffset,
+            holdPointDefaultLocalPos.z
+        );
+
+        holdPoint.localPosition = newLocalPos;
+    }
+
 }
