@@ -47,11 +47,8 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    /// <summary>
     /// Call this method to play a sound by its name.
     /// Example usage: AudioManager.Instance.Play("Explosion");
-    /// </summary>
-    /// <param name="soundName">Name of the sound to play</param>
     public void Play(string soundName)
     {
         Sound s = Array.Find(sounds, sound => sound.name == soundName);
@@ -60,6 +57,19 @@ public class AudioManager : MonoBehaviour
             Debug.LogWarning("AudioManager: Sound not found: " + soundName);
             return;
         }
+        s.source.Play();
+    }
+
+    public void PlayRandomizedPitch(string soundName)
+    {
+        Sound s = Array.Find(sounds, sound => sound.name == soundName);
+        if (s == null)
+        {
+            Debug.LogWarning("AudioManager: Sound not found: " + soundName);
+            return;
+        }
+
+        s.pitch = UnityEngine.Random.Range(0.5f, 1.5f);
         s.source.Play();
     }
 }

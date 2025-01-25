@@ -746,17 +746,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sounds:
   - name: PickUp
-    clip: {fileID: 8300000, guid: 09f3c1ebf26d74ea58d977d9b426bcb2, type: 3}
+    clip: {fileID: 8300000, guid: 7f318098b4254451cb859ee1df31c5f0, type: 3}
     volume: 1
     pitch: 1
     source: {fileID: 0}
   - name: FootStep1
-    clip: {fileID: 8300000, guid: ccbe22e700c4d48ada8527a661406a69, type: 3}
-    volume: 1
+    clip: {fileID: 8300000, guid: 35892a00ce397402c8ebc9599b3f1783, type: 3}
+    volume: 0.5
     pitch: 1
     source: {fileID: 0}
   - name: FootStep2
-    clip: {fileID: 8300000, guid: 9b3dbbf291cf3483a9318c30c66008b9, type: 3}
+    clip: {fileID: 8300000, guid: 700fe07d5d0ab4925ae033875fe06faf, type: 3}
+    volume: 0.5
+    pitch: 1
+    source: {fileID: 0}
+  - name: BabyThump
+    clip: {fileID: 8300000, guid: c38eff5aab0154a0186372c595daa002, type: 3}
     volume: 1
     pitch: 1
     source: {fileID: 0}
@@ -1091,6 +1096,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 656603228687848393, guid: ba51e29e78a5d41aa824faabb2dccb59, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2989232058507103578, guid: ba51e29e78a5d41aa824faabb2dccb59, type: 3}
       propertyPath: m_Name
       value: FPC

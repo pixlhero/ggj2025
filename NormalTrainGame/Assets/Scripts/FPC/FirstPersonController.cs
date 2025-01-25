@@ -44,16 +44,20 @@ public class FirstPersonController : MonoBehaviour
     [Header("Weapon Bobbing")]
     [Tooltip("Speed of the bobbing effect.")]
     public float bobbingSpeed = 5f;
-
     [Tooltip("Vertical amplitude of the bobbing.")]
     public float bobbingAmount = 0.1f;
-
     [Tooltip("How quickly the weapon returns to its original position when not moving.")]
     public float bobReturnSpeed = 5f;
 
     private float bobTimer = 0f;
     private Vector3 holdPointDefaultLocalPos;
 
+    // Footstep Settings
+    [Header("Footstep Settings")]
+    [Tooltip("How often footstep sounds are played (seconds between each step).")]
+    public float footstepInterval = 0.5f;
+
+    private float footstepTimer = 0f;
 
     float horizontalInput;
     float verticalInput;
@@ -98,10 +102,12 @@ public class FirstPersonController : MonoBehaviour
             TryPickupOrDrop();
         }
 
-        // Finally, update the weapon bobbing
+        // Update the weapon bobbing
         WeaponBobbing();
-    }
 
+        // Update footstep logic
+        HandleFootsteps();
+    }
 
     private void FixedUpdate()
     {
@@ -207,7 +213,6 @@ public class FirstPersonController : MonoBehaviour
         if (holdPoint == null) return; // Safety check
 
         // 1) Determine how fast the player is moving on the XZ plane.
-        //    You could also use raw input or compare with a minimum threshold to detect "is walking."
         float horizontalSpeed = new Vector2(rb.linearVelocity.x, rb.linearVelocity.z).magnitude;
 
         // 2) If the player is barely moving or is not grounded, reset and return holdPoint to default.
@@ -230,7 +235,7 @@ public class FirstPersonController : MonoBehaviour
         float waveSlice = Mathf.Sin(bobTimer);
         float verticalOffset = waveSlice * bobbingAmount;
 
-        // 5) Apply the offset to holdPoint; only adjusting the y-position here
+        // 5) Apply the offset to holdPoint
         Vector3 newLocalPos = new Vector3(
             holdPointDefaultLocalPos.x,
             holdPointDefaultLocalPos.y + verticalOffset,
@@ -240,4 +245,45 @@ public class FirstPersonController : MonoBehaviour
         holdPoint.localPosition = newLocalPos;
     }
 
+    /// <summary>
+    /// Plays footstep sounds based on how often the player is moving on the ground.
+    /// </summary>
+    private void HandleFootsteps()
+    {
+        // If not on the ground, reset timer and do nothing
+        if (!grounded)
+        {
+            footstepTimer = 0f;
+            return;
+        }
+
+        // Get horizontal speed
+        float horizontalSpeed = new Vector2(rb.linearVelocity.x, rb.linearVelocity.z).magnitude;
+
+        // If not moving fast enough, reset timer and do nothing
+        if (horizontalSpeed < 0.1f)
+        {
+            footstepTimer = 0f;
+            return;
+        }
+
+        // Accumulate time
+        footstepTimer += Time.deltaTime;
+
+        // If we exceed the footstep interval, play a sound and reset the timer
+        if (footstepTimer >= footstepInterval)
+        {
+            footstepTimer = 0f;
+
+            // Randomly choose one of the two footsteps
+            if (Random.value < 0.5f)
+            {
+                AudioManager.Instance.Play("FootStep1");
+            }
+            else
+            {
+                AudioManager.Instance.Play("FootStep2");
+            }
+        }
+    }
 }
