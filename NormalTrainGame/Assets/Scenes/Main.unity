@@ -986,9 +986,49 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1472926146443872199, guid: d8479d9a37f994be4bf715e991c147ef, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2391845603672310364, guid: d8479d9a37f994be4bf715e991c147ef, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2812333607722537134, guid: d8479d9a37f994be4bf715e991c147ef, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.302
+      objectReference: {fileID: 0}
+    - target: {fileID: 2993453749307346622, guid: d8479d9a37f994be4bf715e991c147ef, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3723272303500580339, guid: d8479d9a37f994be4bf715e991c147ef, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4819069346411842223, guid: d8479d9a37f994be4bf715e991c147ef, type: 3}
       propertyPath: m_Name
       value: TrainMaster
+      objectReference: {fileID: 0}
+    - target: {fileID: 4825544321094896302, guid: d8479d9a37f994be4bf715e991c147ef, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5098051467705313567, guid: d8479d9a37f994be4bf715e991c147ef, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5145461029481130527, guid: d8479d9a37f994be4bf715e991c147ef, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5462868325057049296, guid: d8479d9a37f994be4bf715e991c147ef, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5537223840221719768, guid: d8479d9a37f994be4bf715e991c147ef, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5960493870163529784, guid: d8479d9a37f994be4bf715e991c147ef, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1028,6 +1068,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5960493870163529784, guid: d8479d9a37f994be4bf715e991c147ef, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7393294002101826217, guid: d8479d9a37f994be4bf715e991c147ef, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
