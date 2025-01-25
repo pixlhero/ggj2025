@@ -4,10 +4,18 @@ using System;
 
 public class GameManager : MonoBehaviour
 {
+    public enum GameState
+    {
+        INTRO,
+        GAMEPLAY,
+        GAMEOVER,
+    }
+    
+    
+    public GameState gameState = GameState.INTRO;
+    
     // A singleton instance to allow easy access from any script
     public static GameManager Instance;
-
-    public int score;
 
     private void Awake()
     {
@@ -21,28 +29,28 @@ public class GameManager : MonoBehaviour
 
         // Make sure the AudioManager persists across scene loads
         DontDestroyOnLoad(gameObject);
+        
+        FindFirstObjectByType<IntroManager>().IntroFinished += OnIntroFinished;
+        FindFirstObjectByType<GameloopManager>().TimeRanOut += OnTimeRanOut;
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         AudioManager.Instance.PlayLoopingSound("AmbianceTrain");
+        
+        gameState = GameState.INTRO;
+        FindFirstObjectByType<IntroManager>().StartIntro();
     }
-
-    // Update is called once per frame
-    void Update()
+    
+    private void OnIntroFinished()
     {
-
+        gameState = GameState.GAMEPLAY;
+        FindFirstObjectByType<GameloopManager>().StartGameLoop();
     }
-
-    public void ResetScore()
+    
+    private void OnTimeRanOut()
     {
-        score = 0;
-    }
-
-    public void AddScore(int points)
-    {
-        score += points;
-        AudioManager.Instance.PlayCalculatedAnnouncerSound(score);
+        gameState = GameState.GAMEOVER;
     }
 }

@@ -9,7 +9,7 @@ public class ScoreZone : MonoBehaviour
     {
         if (other.CompareTag(pickupableTag))
         {
-            GameManager.Instance.AddScore(1);
+            GameloopManager.Instance.AddScore(1);
         }
     }
 }
