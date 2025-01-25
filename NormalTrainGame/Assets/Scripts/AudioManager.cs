@@ -44,8 +44,9 @@ public class AudioManager : MonoBehaviour
             s.source = gameObject.AddComponent<AudioSource>();
             s.source.clip = s.clip;
             s.source.volume = s.volume;
-            s.source.pitch = s.pitch;
+            s.source.pitch = 1;
             s.source.loop = s.loop;  // Set looping based on the Sound's boolean
+            s.source.dopplerLevel = 0;  // Disable doppler effect, its buggy
             // You can set more AudioSource properties here, e.g. spatialBlend, etc.
         }
 
@@ -55,8 +56,9 @@ public class AudioManager : MonoBehaviour
             s.source = gameObject.AddComponent<AudioSource>();
             s.source.clip = s.clip;
             s.source.volume = s.volume;
-            s.source.pitch = s.pitch;
+            s.source.pitch = 1;
             s.source.loop = s.loop;  // Set looping based on the Sound's boolean
+            s.source.dopplerLevel = 0;  // Disable doppler effect, its buggy
             // You can set more AudioSource properties here, e.g. spatialBlend, etc.
         }
     }

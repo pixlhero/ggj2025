@@ -1201,6 +1201,12 @@ MonoBehaviour:
     pitch: 1
     loop: 1
     source: {fileID: 0}
+  - name: BabySendoff
+    clip: {fileID: 8300000, guid: c871f709be3f746eb835e1d7d6a4cc98, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
   announcerSounds:
   - name: FirstBlood
     clip: {fileID: 8300000, guid: 2f55c02bc35bb48379fe34797499eef6, type: 3}

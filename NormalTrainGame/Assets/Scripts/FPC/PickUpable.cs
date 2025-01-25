@@ -59,8 +59,11 @@ public class Pickupable : MonoBehaviour
         rb.useGravity = true;
         pickUpableObj.GetComponent<Collider>().enabled = true;
 
-        // Play baby crying
+        // stop baby crying
         AudioManager.Instance.StopLoopingSound("BabyCry");
+
+        // Play baby sendoff
+        AudioManager.Instance.Play("BabySendoff");
 
         if (holdParent != null)
         {
@@ -96,6 +99,7 @@ public class Pickupable : MonoBehaviour
                     break;
             }
 
+            // jojo todo und so
             // Spawn blood effect at point of collision
             if (bloodPrefab != null && collision.contacts.Length > 0)
             {
