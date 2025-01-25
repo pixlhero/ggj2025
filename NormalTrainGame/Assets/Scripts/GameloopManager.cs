@@ -1,10 +1,14 @@
 using System;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameloopManager : MonoBehaviour
 {
     public event Action TimeRanOut;
+    
+    public event Action GotAllBabies;
 
     public static GameloopManager Instance;
     
@@ -15,6 +19,8 @@ public class GameloopManager : MonoBehaviour
     
     public GameObject timeUI;
     
+    public Image timeBarFilled;
+    
     public GameObject middleDot;
 
     public int score;
@@ -22,6 +28,8 @@ public class GameloopManager : MonoBehaviour
     private int maxBabies = 5;
     
     public float secondsLeft;
+    
+    private Sequence _uiAnimationSequence;
 
     private void Awake()
     {
@@ -38,6 +46,8 @@ public class GameloopManager : MonoBehaviour
     
     private void Update() {
         if(GameManager.Instance.gameState != GameManager.GameState.GAMEPLAY) return;
+        
+        timeBarFilled.fillAmount = secondsLeft / 10f;
 
         if (secondsLeft > 0)
         {
@@ -50,6 +60,7 @@ public class GameloopManager : MonoBehaviour
             secondsLeft = 0;
             timeUI.SetActive(false);
             middleDot.SetActive(false);
+
             TimeRanOut?.Invoke();
         }
     }
@@ -77,5 +88,19 @@ public class GameloopManager : MonoBehaviour
         secondsLeft = 10;
         
         scoreText.text = "Babies Left: " + (maxBabies - score);
+            
+        _uiAnimationSequence?.Kill();
+        _uiAnimationSequence = DOTween.Sequence();
+
+        scoreText.transform.localScale = Vector3.one;
+        _uiAnimationSequence.Append(scoreText.transform.DOScale(Vector3.one * 1.5f, 0.1f).SetEase(Ease.Linear));
+        _uiAnimationSequence.Append(scoreText.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.Linear));
+        _uiAnimationSequence.Insert(0, timeUI.transform.DOScale(Vector3.one * 1.5f, 0.1f).SetEase(Ease.Linear));
+        _uiAnimationSequence.Insert(0.1f, timeUI.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.Linear));
+        
+        if(score >= maxBabies)
+        {
+            GotAllBabies?.Invoke();
+        }
     }
 }
