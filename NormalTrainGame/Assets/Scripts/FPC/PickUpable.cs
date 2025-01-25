@@ -23,9 +23,26 @@ public class Pickupable : MonoBehaviour
     private bool isPickedUp = false;
     private float nextCollisionSoundTime = 0f; // Tracks when we can next play a collision sound
 
+    // Store the rocking Tween so we can kill it later
+    private Tween rockingTween;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+    }
+
+    private void Start()
+    {
+        // Start the rocking motion
+        // Start a gentle rocking motion with DoTween
+        // Adjust the angle, duration, and easing as desired
+        rockingTween = pickUpableObj.transform.DOLocalRotate(
+            new Vector3(10f, 0f, 0f), // the rotation we add
+            0.5f,                     // duration of one half of the rock
+            RotateMode.LocalAxisAdd   // rotate relative to current rotation
+        )
+        .SetLoops(-1, LoopType.Yoyo) // repeat forever, back and forth
+        .SetEase(Ease.InOutSine);    // smooth back-and-forth
     }
 
     /// <summary>
@@ -38,7 +55,7 @@ public class Pickupable : MonoBehaviour
 
         rb.isKinematic = true;
         rb.useGravity = false;
-        pickUpableObj.GetComponent<Collider>().enabled = false;
+        gameObject.GetComponent<Collider>().enabled = false;
 
         var goHolder = holdParent.transform.Find("GameObjectHolder");
         transform.SetParent(goHolder);
@@ -65,13 +82,19 @@ public class Pickupable : MonoBehaviour
 
         rb.isKinematic = false;
         rb.useGravity = true;
-        pickUpableObj.GetComponent<Collider>().enabled = true;
+        gameObject.GetComponent<Collider>().enabled = true;
 
-        // stop baby crying
+        // Stop baby crying
         AudioManager.Instance.StopLoopingSound("BabyCry");
 
         // Play baby sendoff
         AudioManager.Instance.Play("BabySendoff");
+
+        // Kill the rocking motion when dropped
+        if (rockingTween != null && rockingTween.IsActive())
+        {
+            rockingTween.Kill();
+        }
 
         if (holdParent != null)
         {
