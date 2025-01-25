@@ -668,7 +668,7 @@ MonoBehaviour:
   orientation: {fileID: 5727963708425854260}
   playerCam: {fileID: 8663074015730792943}
   holdPoint: {fileID: 3077895058644513133}
-  pickupRange: 5
+  pickupRange: 3
   bobbingSpeed: 5
   bobbingAmount: 0.1
   bobReturnSpeed: 5
