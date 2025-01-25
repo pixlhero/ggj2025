@@ -1517,14 +1517,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: PickUpable
       objectReference: {fileID: 0}
-    - target: {fileID: 569546775085060589, guid: 41aa03ab64709439aaa117e234409250, type: 3}
-      propertyPath: m_TagString
-      value: Untagged
-      objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: 41aa03ab64709439aaa117e234409250, type: 3}
-      propertyPath: m_TagString
-      value: Pickupable
-      objectReference: {fileID: 0}
     - target: {fileID: 8654651879769157106, guid: 41aa03ab64709439aaa117e234409250, type: 3}
       propertyPath: m_LocalPosition.x
       value: 20.127
