@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
+        AudioManager.Instance.PlayLoopingSound("AmbianceTrain");
     }
 
     // Update is called once per frame
@@ -43,5 +43,6 @@ public class GameManager : MonoBehaviour
     public void AddScore(int points)
     {
         score += points;
+        AudioManager.Instance.PlayCalculatedAnnouncerSound(score);
     }
 }

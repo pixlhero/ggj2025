@@ -24,9 +24,7 @@ public class Pickupable : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
-    /// <summary>
     /// Called when the player picks this object up.
-    /// </summary>
     public void OnPickUp(Transform holdParent)
     {
         isPickedUp = true;
@@ -42,14 +40,15 @@ public class Pickupable : MonoBehaviour
         // Play PickUp sound
         AudioManager.Instance.Play("PickUp");
 
+        // Play baby crying
+        AudioManager.Instance.Play("BabyCry");
+
         // Reset local position/rotation so it lines up nicely
         transform.localPosition = Vector3.zero;
         transform.localRotation = Quaternion.identity;
     }
 
-    /// <summary>
     /// Called when the player drops this object.
-    /// </summary>
     public void OnDrop()
     {
         isPickedUp = false;
@@ -60,6 +59,9 @@ public class Pickupable : MonoBehaviour
         rb.useGravity = true;
         pickUpableObj.GetComponent<Collider>().enabled = true;
 
+        // Play baby crying
+        AudioManager.Instance.StopLoopingSound("BabyCry");
+
         if (holdParent != null)
         {
             // Apply an impulse force in front of the player
@@ -67,10 +69,7 @@ public class Pickupable : MonoBehaviour
         }
     }
 
-    /// <summary>
     /// Detect collisions and play a sound if appropriate.
-    /// </summary>
-    /// <param name="collision">Collision data.</param>
     private void OnCollisionEnter(Collision collision)
     {
         // Only play collision sound if:
@@ -81,8 +80,21 @@ public class Pickupable : MonoBehaviour
             && collision.relativeVelocity.magnitude >= minCollisionVelocity
             && Time.time >= nextCollisionSoundTime)
         {
-            // Play impact sound
-            AudioManager.Instance.PlayRandomizedPitch("BabyThump");
+            // Determine which sound to play based on the tag of the collided object
+            string collisionTag = collision.gameObject.tag;
+            switch (collisionTag)
+            {
+                case "Metal":
+                    AudioManager.Instance.PlayRandomizedPitch("MetalThump");
+                    break;
+                case "BigMetal":
+                    AudioManager.Instance.PlayRandomizedPitch("BigMetalThump");
+                    break;
+                default:
+                    // Fallback sound if the tag doesn't match known ones
+                    AudioManager.Instance.PlayRandomizedPitch("BabyThump");
+                    break;
+            }
 
             // Spawn blood effect at point of collision
             if (bloodPrefab != null && collision.contacts.Length > 0)
@@ -96,4 +108,5 @@ public class Pickupable : MonoBehaviour
             nextCollisionSoundTime = Time.time + collisionSoundCooldown;
         }
     }
+
 }
