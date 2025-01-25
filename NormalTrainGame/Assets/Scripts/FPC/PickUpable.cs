@@ -93,6 +93,9 @@ public class Pickupable : MonoBehaviour
                 case "BigMetal":
                     AudioManager.Instance.Play("BigMetalThump");
                     break;
+                case "DampThud":
+                    AudioManager.Instance.Play("DampThud");
+                    break;
                 default:
                     // Fallback sound if the tag doesn't match known ones
                     AudioManager.Instance.Play("BabyThump");

@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using System.Collections; // Need this for Coroutines
 
 public class AudioManager : MonoBehaviour
 {
@@ -25,6 +26,9 @@ public class AudioManager : MonoBehaviour
 
     public Sound[] announcerSounds;
 
+    // Store reference to coroutine so we can stop it if needed
+    private Coroutine randomAnnouncerCoroutine;
+
     private void Awake()
     {
         // Enforce singleton pattern
@@ -47,7 +51,6 @@ public class AudioManager : MonoBehaviour
             s.source.pitch = 1;
             s.source.loop = s.loop;  // Set looping based on the Sound's boolean
             s.source.dopplerLevel = 0;  // Disable doppler effect, its buggy
-            // You can set more AudioSource properties here, e.g. spatialBlend, etc.
         }
 
         // Create an AudioSource component for each announcer sound
@@ -59,7 +62,6 @@ public class AudioManager : MonoBehaviour
             s.source.pitch = 1;
             s.source.loop = s.loop;  // Set looping based on the Sound's boolean
             s.source.dopplerLevel = 0;  // Disable doppler effect, its buggy
-            // You can set more AudioSource properties here, e.g. spatialBlend, etc.
         }
     }
 
@@ -165,7 +167,6 @@ public class AudioManager : MonoBehaviour
         s.source.Play();
     }
 
-
     /// Stop a looping sound by name.
     public void StopLoopingSound(string soundName)
     {
@@ -176,5 +177,45 @@ public class AudioManager : MonoBehaviour
             return;
         }
         s.source.Stop();
+    }
+
+    /// Start playing random announcer sounds in intervals of 30 to 60 seconds.
+    public void StartRandomInterval(string soundName)
+    {
+        // Only start the coroutine if it's not already running
+        if (randomAnnouncerCoroutine == null)
+        {
+            randomAnnouncerCoroutine = StartCoroutine(RandomIntervalCoroutine(soundName));
+        }
+    }
+
+    /// <summary>
+    /// Stop playing random announcer sounds.
+    /// </summary>
+    public void StopRandomInterval()
+    {
+        // If the coroutine is running, stop it
+        if (randomAnnouncerCoroutine != null)
+        {
+            StopCoroutine(randomAnnouncerCoroutine);
+            randomAnnouncerCoroutine = null;
+        }
+    }
+
+    /// <summary>
+    /// Coroutine that plays a random announcer sound
+    /// at random intervals between 30 and 60 seconds.
+    /// </summary>
+    private IEnumerator RandomIntervalCoroutine(string soundName)
+    {
+        while (true)
+        {
+            // Wait for a random amount of time between 30 and 60 seconds
+            float waitTime = UnityEngine.Random.Range(30f, 60f);
+            yield return new WaitForSeconds(waitTime);
+
+            // Play a random announcer sound
+            Play(soundName);
+        }
     }
 }
