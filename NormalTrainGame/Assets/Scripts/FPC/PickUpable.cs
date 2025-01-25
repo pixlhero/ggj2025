@@ -10,7 +10,10 @@ public class Pickupable : MonoBehaviour
     [SerializeField] private float collisionSoundCooldown = 0.5f; // Debounce interval (in seconds)
 
     [Header("Blood Effect")]
-    [SerializeField] private GameObject bloodPrefab;  // Reference to your blood effect prefab
+    [SerializeField] private GameObject collisionParticlePrefab;
+
+    [Tooltip("How long to keep the collision prefab in the scene before destroying it.")]
+    [SerializeField] private float collisionPrefabLifetime = 5f;
 
     public GameObject pickUpableObj;
 
@@ -25,7 +28,9 @@ public class Pickupable : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
+    /// <summary>
     /// Called when the player picks this object up.
+    /// </summary>
     public void OnPickUp(Transform holdParent)
     {
         isPickedUp = true;
@@ -49,10 +54,11 @@ public class Pickupable : MonoBehaviour
         transform.localRotation = Quaternion.identity;
     }
 
+    /// <summary>
     /// Called when the player drops this object.
+    /// </summary>
     public void OnDrop()
     {
-
         isPickedUp = false;
 
         transform.SetParent(null);
@@ -76,7 +82,9 @@ public class Pickupable : MonoBehaviour
         }
     }
 
+    /// <summary>
     /// Detect collisions and play a sound if appropriate.
+    /// </summary>
     private void OnCollisionEnter(Collision collision)
     {
         // Only play collision sound if:
@@ -106,18 +114,18 @@ public class Pickupable : MonoBehaviour
                     break;
             }
 
-            // jojo todo und so
-            // Spawn blood effect at point of collision
-            if (bloodPrefab != null && collision.contacts.Length > 0)
+            // Spawn collision effect at the point of collision
+            if (collisionParticlePrefab != null && collision.contacts.Length > 0)
             {
-                // Use the first contact point to position the blood effect
                 ContactPoint contact = collision.contacts[0];
-                Instantiate(bloodPrefab, contact.point, Quaternion.identity);
+                GameObject spawnedEffect = Instantiate(collisionParticlePrefab, contact.point, Quaternion.identity);
+
+                // Destroy the spawned effect after the specified lifetime
+                Destroy(spawnedEffect, collisionPrefabLifetime);
             }
 
             // Reset next time sound is allowed
             nextCollisionSoundTime = Time.time + collisionSoundCooldown;
         }
     }
-
 }
