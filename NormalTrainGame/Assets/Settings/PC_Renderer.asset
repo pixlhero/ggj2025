@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: FullScreenPassRendererFeature
   m_EditorClassIdentifier: 
   m_Active: 1
-  injectionPoint: 550
+  injectionPoint: 600
   fetchColorBuffer: 1
   requirements: 0
   passMaterial: {fileID: 2100000, guid: e7592a4d8967845e1b1f367b2577a1e7, type: 2}
@@ -66,9 +66,9 @@ MonoBehaviour:
     probeVolumeBlendStatesCS: {fileID: 7200000, guid: b9a23f869c4fd45f19c5ada54dd82176, type: 3}
   m_RendererFeatures:
   - {fileID: 7833122117494664109}
-  - {fileID: -589593027816084940}
   - {fileID: -1711696648568725909}
-  m_RendererFeatureMap: ad6b866f10d7b46c34aaf9d64358d1f76b9ed592f7d43ee8
+  - {fileID: -589593027816084940}
+  m_RendererFeatureMap: ad6b866f10d7b46c6b9ed592f7d43ee834aaf9d64358d1f7
   m_UseNativeRenderPass: 1
   xrSystemData: {fileID: 0}
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
