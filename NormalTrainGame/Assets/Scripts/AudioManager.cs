@@ -10,7 +10,7 @@ public class AudioManager : MonoBehaviour
     {
         public string name;                  // Identifier for the sound
         public AudioClip clip;               // The audio clip
-        [Range(0f, 1f)]
+        [Range(0f, 2f)]
         public float volume = 1f;            // Volume level for this sound
         [Range(.1f, 3f)]
         public float pitch = 1f;             // Pitch level for this sound

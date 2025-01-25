@@ -85,14 +85,14 @@ public class Pickupable : MonoBehaviour
             switch (collisionTag)
             {
                 case "Metal":
-                    AudioManager.Instance.PlayRandomizedPitch("MetalThump");
+                    AudioManager.Instance.Play("MetalThump");
                     break;
                 case "BigMetal":
-                    AudioManager.Instance.PlayRandomizedPitch("BigMetalThump");
+                    AudioManager.Instance.Play("BigMetalThump");
                     break;
                 default:
                     // Fallback sound if the tag doesn't match known ones
-                    AudioManager.Instance.PlayRandomizedPitch("BabyThump");
+                    AudioManager.Instance.Play("BabyThump");
                     break;
             }
 
