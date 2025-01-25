@@ -25,16 +25,7 @@ public class GameloopManager : MonoBehaviour
 
     private void Awake()
     {
-        // Enforce singleton pattern
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
         Instance = this;
-
-        // Make sure the AudioManager persists across scene loads
-        DontDestroyOnLoad(gameObject);
     }
 
     public void Start()
@@ -59,6 +50,7 @@ public class GameloopManager : MonoBehaviour
             secondsLeft = 0;
             timeUI.SetActive(false);
             middleDot.SetActive(false);
+            TimeRanOut?.Invoke();
         }
     }
     
@@ -81,6 +73,8 @@ public class GameloopManager : MonoBehaviour
     {
         score += points;
         AudioManager.Instance.PlayCalculatedAnnouncerSound(score);
+        
+        secondsLeft = 10;
         
         scoreText.text = "Babies Left: " + (maxBabies - score);
     }

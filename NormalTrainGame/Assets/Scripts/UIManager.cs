@@ -9,16 +9,7 @@ public class UIManager : MonoBehaviour
 
     private void Awake()
     {
-        // Enforce singleton pattern
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
         Instance = this;
-
-        // Make sure the AudioManager persists across scene loads
-        DontDestroyOnLoad(gameObject);
 
         // Hide the pickup hint by default
         pickupHint.SetActive(false);

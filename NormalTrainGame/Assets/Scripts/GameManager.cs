@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using UnityEngine.SceneManagement;
 
 
 public class GameManager : MonoBehaviour
@@ -19,19 +20,11 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        // Enforce singleton pattern
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
         Instance = this;
-
-        // Make sure the AudioManager persists across scene loads
-        DontDestroyOnLoad(gameObject);
         
         FindFirstObjectByType<IntroManager>().IntroFinished += OnIntroFinished;
         FindFirstObjectByType<GameloopManager>().TimeRanOut += OnTimeRanOut;
+        FindFirstObjectByType<GameOverManager>().GameOverFinished += OnGameoverFinished;
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -54,5 +47,11 @@ public class GameManager : MonoBehaviour
     private void OnTimeRanOut()
     {
         gameState = GameState.GAMEOVER;
+        GameOverManager.Instance.StartGameover();
+    }
+    
+    private void OnGameoverFinished()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
