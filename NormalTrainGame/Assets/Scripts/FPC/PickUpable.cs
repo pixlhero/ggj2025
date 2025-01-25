@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -51,6 +52,7 @@ public class Pickupable : MonoBehaviour
     /// Called when the player drops this object.
     public void OnDrop()
     {
+
         isPickedUp = false;
 
         transform.SetParent(null);

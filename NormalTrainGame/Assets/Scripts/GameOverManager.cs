@@ -1,7 +1,14 @@
+using System;
+using System.Collections;
+using DG.Tweening;
 using UnityEngine;
 
 public class GameOverManager : MonoBehaviour
 {
+    public event Action GameOverFinished;
+
+    public CanvasGroup blackOverlay;
+
     // A singleton instance to allow easy access from any script
     public static GameOverManager Instance;
 
@@ -19,15 +26,17 @@ public class GameOverManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-
+    public void StartGameover(){
+        blackOverlay.DOFade(0f, 1f);
+        
+        StartCoroutine(StartGameoverCoroutine());
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+    
+    private IEnumerator StartGameoverCoroutine(){
+        blackOverlay.DOFade(1f, 1f);
+        
+        yield return new WaitForSeconds(1f);
+        
+        GameOverFinished?.Invoke();
     }
 }

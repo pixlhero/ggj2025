@@ -10,6 +10,7 @@ public class ScoreZone : MonoBehaviour
         if (other.CompareTag(pickupableTag))
         {
             GameloopManager.Instance.AddScore(1);
+            FindFirstObjectByType<IntroManager>().ThrownBaby();
         }
     }
 }
