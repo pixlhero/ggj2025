@@ -891,8 +891,9 @@ GameObject:
   - component: {fileID: 913356438}
   - component: {fileID: 913356437}
   - component: {fileID: 913356436}
+  - component: {fileID: 913356439}
   m_Layer: 0
-  m_Name: ScoreCollider (2)
+  m_Name: ScoreZone (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -987,6 +988,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 913356434}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &913356439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 913356434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f254ead4a5fd2448ea92b792e0b704da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickupableTag: Pickupable
 --- !u!1 &1171965254
 GameObject:
   m_ObjectHideFlags: 0
@@ -999,8 +1013,9 @@ GameObject:
   - component: {fileID: 1171965258}
   - component: {fileID: 1171965257}
   - component: {fileID: 1171965256}
+  - component: {fileID: 1171965259}
   m_Layer: 0
-  m_Name: ScoreCollider (3)
+  m_Name: ScoreZone (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1016,7 +1031,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -3.4191933, y: 4.49, z: -2.01}
-  m_LocalScale: {x: 30.743471, y: -0.7404924, z: 7.7470427}
+  m_LocalScale: {x: 30.743471, y: 1, z: 7.7470427}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1901062867}
@@ -1095,6 +1110,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1171965254}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1171965259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1171965254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f254ead4a5fd2448ea92b792e0b704da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickupableTag: Pickupable
 --- !u!1 &1209871359
 GameObject:
   m_ObjectHideFlags: 0
@@ -1228,8 +1256,9 @@ GameObject:
   - component: {fileID: 1658670255}
   - component: {fileID: 1658670254}
   - component: {fileID: 1658670253}
+  - component: {fileID: 1658670256}
   m_Layer: 0
-  m_Name: ScoreCollider (1)
+  m_Name: ScoreZone (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1324,6 +1353,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1658670251}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1658670256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1658670251}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f254ead4a5fd2448ea92b792e0b704da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickupableTag: Pickupable
 --- !u!1 &1901062866
 GameObject:
   m_ObjectHideFlags: 0
@@ -1374,8 +1416,9 @@ GameObject:
   - component: {fileID: 2011409473}
   - component: {fileID: 2011409472}
   - component: {fileID: 2011409471}
+  - component: {fileID: 2011409474}
   m_Layer: 0
-  m_Name: ScoreCollider (4)
+  m_Name: ScoreZone (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1390,8 +1433,8 @@ Transform:
   m_GameObject: {fileID: 2011409469}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 12.81, y: 7.57, z: -2.17}
-  m_LocalScale: {x: 1.1762908, y: -9.193593, z: 7.4731073}
+  m_LocalPosition: {x: 12.65, y: 7.57, z: -2.17}
+  m_LocalScale: {x: 1.1762908, y: 9, z: 7.4731073}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1901062867}
@@ -1470,6 +1513,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2011409469}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &2011409474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2011409469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f254ead4a5fd2448ea92b792e0b704da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickupableTag: Pickupable
 --- !u!1001 &6544640875890488237
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1481,6 +1537,14 @@ PrefabInstance:
     - target: {fileID: 569546775085060589, guid: 41aa03ab64709439aaa117e234409250, type: 3}
       propertyPath: m_Name
       value: PickUpable
+      objectReference: {fileID: 0}
+    - target: {fileID: 569546775085060589, guid: 41aa03ab64709439aaa117e234409250, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 41aa03ab64709439aaa117e234409250, type: 3}
+      propertyPath: m_TagString
+      value: Pickupable
       objectReference: {fileID: 0}
     - target: {fileID: 8654651879769157106, guid: 41aa03ab64709439aaa117e234409250, type: 3}
       propertyPath: m_LocalPosition.x

@@ -7,6 +7,9 @@ public class ScoreZone : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("Triggered by: " + other.name);
+        Debug.Log("Tag: " + other.tag);
+
         // If you prefer using a tag check:
         if (other.CompareTag(pickupableTag))
         {
