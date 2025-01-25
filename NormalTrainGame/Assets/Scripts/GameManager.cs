@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
         
         FindFirstObjectByType<IntroManager>().IntroFinished += OnIntroFinished;
         FindFirstObjectByType<GameloopManager>().TimeRanOut += OnTimeRanOut;
+        FindFirstObjectByType<GameloopManager>().GotAllBabies += OnGotAllBabies;
         FindFirstObjectByType<GameOverManager>().GameOverFinished += OnGameoverFinished;
     }
 
@@ -45,6 +46,12 @@ public class GameManager : MonoBehaviour
     }
     
     private void OnTimeRanOut()
+    {
+        gameState = GameState.GAMEOVER;
+        GameOverManager.Instance.StartGameover();
+    }
+    
+    private void OnGotAllBabies()
     {
         gameState = GameState.GAMEOVER;
         GameOverManager.Instance.StartGameover();
