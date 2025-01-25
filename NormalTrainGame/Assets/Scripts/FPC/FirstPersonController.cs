@@ -102,6 +102,33 @@ public class FirstPersonController : MonoBehaviour
             TryPickupOrDrop();
         }
 
+        // Check if showing the pickup hint
+        // I know this is kind of doppelt gemoppelt from the TryPickupOrDrop method,but whatever
+        if (currentlyHeldObject != null)
+        {
+            UIManager.Instance.pickupHint.SetActive(false);
+        }
+        else
+        {
+            // Check for pickupable objects in range
+            Ray ray = new Ray(playerCam.transform.position, playerCam.transform.forward);
+            if (Physics.Raycast(ray, out RaycastHit hit, pickupRange))
+            {
+                if (hit.transform.GetComponent<Pickupable>() != null)
+                {
+                    UIManager.Instance.pickupHint.SetActive(true);
+                }
+                else
+                {
+                    UIManager.Instance.pickupHint.SetActive(false);
+                }
+            }
+            else
+            {
+                UIManager.Instance.pickupHint.SetActive(false);
+            }
+        }
+
         // Update the weapon bobbing
         WeaponBobbing();
 

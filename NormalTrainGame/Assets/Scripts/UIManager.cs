@@ -19,6 +19,9 @@ public class UIManager : MonoBehaviour
 
         // Make sure the AudioManager persists across scene loads
         DontDestroyOnLoad(gameObject);
+
+        // Hide the pickup hint by default
+        pickupHint.SetActive(false);
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
