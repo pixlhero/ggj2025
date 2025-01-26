@@ -10,7 +10,7 @@ public class DoorInteractible : MonoBehaviour
     [SerializeField] private float slideDistance = 1f;
     [SerializeField] private float slideDuration = 1f;
     
-    public int miniumScore = 0;
+    public int minimumLevel = 0;
     public bool alwaysLocked = false;
 
     private bool _isDoorOpen = false;
@@ -27,7 +27,7 @@ public class DoorInteractible : MonoBehaviour
     {
         if (!_isDoorOpen)
         {
-            if(GameloopManager.Instance.score < miniumScore || alwaysLocked)
+            if(GameloopManager.Instance.CurrentLevel < minimumLevel || alwaysLocked)
             {
                 return;
             }

@@ -87,6 +87,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8201298660708871683, guid: d8479d9a37f994be4bf715e991c147ef, type: 3}
+      propertyPath: alwaysLocked
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8943678297371743648, guid: d8479d9a37f994be4bf715e991c147ef, type: 3}
+      propertyPath: minimumLevel
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -105,6 +113,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8358224621755147850}
     m_Modifications:
+    - target: {fileID: 1815278459266957946, guid: ce991a58c74f041da9f92dce410efb06, type: 3}
+      propertyPath: minimumLevel
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 2868713983385935221, guid: ce991a58c74f041da9f92dce410efb06, type: 3}
       propertyPath: m_Name
       value: TrainMaster-Level-2
@@ -167,6 +179,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8358224621755147850}
     m_Modifications:
+    - target: {fileID: 1815278459266957946, guid: ce991a58c74f041da9f92dce410efb06, type: 3}
+      propertyPath: minimumLevel
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2868713983385935221, guid: ce991a58c74f041da9f92dce410efb06, type: 3}
       propertyPath: m_Name
       value: TrainMaster-Level-1
@@ -229,6 +245,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8358224621755147850}
     m_Modifications:
+    - target: {fileID: 1815278459266957946, guid: ce991a58c74f041da9f92dce410efb06, type: 3}
+      propertyPath: alwaysLocked
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2868713983385935221, guid: ce991a58c74f041da9f92dce410efb06, type: 3}
       propertyPath: m_Name
       value: TrainMaster-Level-3
