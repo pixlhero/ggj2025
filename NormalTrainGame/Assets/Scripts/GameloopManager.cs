@@ -159,7 +159,7 @@ public class GameloopManager : MonoBehaviour
         if (door == doors[CurrentLevel - 1])
         {
             AudioManager.Instance.StopLoopingFadeOut("Elevator", 1);
-            AudioManager.Instance.StartLoopingFadeIn("Soundtrack", .15f, .5f);
+            AudioManager.Instance.StartLoopingFadeIn("Soundtrack", .16f, .5f);
             AudioManager.Instance.StartLoopingFadeIn("LongBabyCry", .15f, .5f);
             RenderSettings.ambientLight = redAmbientColor;
 
