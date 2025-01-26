@@ -86,7 +86,7 @@ public class GameloopManager : MonoBehaviour
     public void StartGameLoop()
     {
         scoreUI.SetActive(true);
-        secondsLeft = 10;
+        secondsLeft = maxTime;
 
         timeUI.SetActive(true);
 
