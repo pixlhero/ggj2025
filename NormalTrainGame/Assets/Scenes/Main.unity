@@ -1980,7 +1980,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: Door
     clip: {fileID: 8300000, guid: 4cdd572e9bd2d47529b03ee6ce35261f, type: 3}
-    volume: 0.2
+    volume: 0.25
     pitch: 1
     loop: 0
     source: {fileID: 0}
