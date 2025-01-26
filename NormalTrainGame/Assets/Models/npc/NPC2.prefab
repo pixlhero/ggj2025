@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &6559020335513073825
+--- !u!1001 &3035928396661791989
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 289375132336913961, guid: 547c9240e72d74a3f9679ce37316d0d5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.205
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 289375132336913961, guid: 547c9240e72d74a3f9679ce37316d0d5, type: 3}
       propertyPath: m_LocalPosition.y
@@ -48,42 +48,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3136164636477125047, guid: 547c9240e72d74a3f9679ce37316d0d5, type: 3}
-      propertyPath: m_TagString
-      value: Untagged
-      objectReference: {fileID: 0}
-    - target: {fileID: 3954954037309015820, guid: 547c9240e72d74a3f9679ce37316d0d5, type: 3}
+    - target: {fileID: 5197375458794051604, guid: 547c9240e72d74a3f9679ce37316d0d5, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 2d522d412d3dc4168959b1ec37cba79d, type: 2}
-    - target: {fileID: 4281109333614362962, guid: 547c9240e72d74a3f9679ce37316d0d5, type: 3}
-      propertyPath: m_TagString
-      value: Oof
-      objectReference: {fileID: 0}
-    - target: {fileID: 4888865528358956135, guid: 547c9240e72d74a3f9679ce37316d0d5, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7365234805149397709, guid: 547c9240e72d74a3f9679ce37316d0d5, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.6848394
-      objectReference: {fileID: 0}
-    - target: {fileID: 7365234805149397709, guid: 547c9240e72d74a3f9679ce37316d0d5, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.0426681
-      objectReference: {fileID: 0}
-    - target: {fileID: 7365234805149397709, guid: 547c9240e72d74a3f9679ce37316d0d5, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.6848394
-      objectReference: {fileID: 0}
-    - target: {fileID: 7365234805149397709, guid: 547c9240e72d74a3f9679ce37316d0d5, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.137
-      objectReference: {fileID: 0}
-    - target: {fileID: 7365234805149397709, guid: 547c9240e72d74a3f9679ce37316d0d5, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.68
-      objectReference: {fileID: 0}
     - target: {fileID: 7714298716975842652, guid: 547c9240e72d74a3f9679ce37316d0d5, type: 3}
       propertyPath: m_Name
       value: NPC2

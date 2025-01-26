@@ -26,9 +26,10 @@ public class GameloopManager : MonoBehaviour
     public GameObject middleDot;
 
     public int score;
-
-    private int[] maxBabies = new int[] { 6, 11, 20, 31 };
-
+    
+    private int[] maxBabies = new int[]{6, 11, 20, 31};
+    private float [] timePerBaby = new float[]{15, 10, 7, 4};
+    
     private int _currentLevel = 0;
 
     public float secondsLeft;
@@ -36,8 +37,8 @@ public class GameloopManager : MonoBehaviour
     private Sequence _uiAnimationSequence;
 
     private bool _isInCooldownMode = false;
-
-    private float maxTime = 15f;
+    
+    private float maxTime => timePerBaby[_currentLevel];
 
     private void Awake()
     {
