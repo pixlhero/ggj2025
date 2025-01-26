@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.InputSystem;
+using Unity.VisualScripting;
 
 public class IntroManager : MonoBehaviour
 {
@@ -28,12 +29,18 @@ public class IntroManager : MonoBehaviour
     
     [SerializeField] private Transform wakeupCamPos;
     
+    [SerializeField] private CanvasGroup gameTitleCanvas;
+    [SerializeField] private CanvasGroup gameTitle;
+    [SerializeField] private CanvasGroup gameDisclaimer;
+    
     public GameObject middleDot;
     
     public CanvasGroup creditsCanvas;
     private bool _showingCredits;
     
     private bool _hasThrownBaby;
+    
+    private static bool _hasAlreadyShownTitle; 
     
     private void Awake() {
         startGameUI.SetActive(false);
@@ -66,9 +73,37 @@ public class IntroManager : MonoBehaviour
         introCameraWrapper.gameObject.SetActive(true);
         introCameraWrapper.position = wakeupCamPos.position;
         introCameraWrapper.rotation = wakeupCamPos.rotation;
-
         screenSpaceUI.SetActive(false);
         
+        if(!_hasAlreadyShownTitle)
+        {
+            gameTitleCanvas.alpha = 1;
+            gameTitle.alpha = 0;
+            gameDisclaimer.alpha = 0;
+            
+            yield return new WaitForSeconds(1f);
+            gameTitle.DOFade(1, 1f);
+            
+            yield return new WaitForSeconds(2f);
+            
+            gameTitle.DOFade(0, 1f);
+            
+            yield return new WaitForSeconds(1f);
+            
+            gameDisclaimer.DOFade(1, 1f);
+            
+            yield return new WaitForSeconds(2f);
+            
+            gameDisclaimer.DOFade(0, 1f);
+            
+            yield return new WaitForSeconds(1f);
+            
+            gameTitleCanvas.DOFade(0, 1f);
+            _hasAlreadyShownTitle = true;
+        }
+
+
+        // START INTRO CINEMATIC
         yield return new WaitForSeconds(1f);
         playerAnimator.Play("Wakeup");
         darkOverlay.DOFade(0, 0.2f);
