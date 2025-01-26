@@ -1969,7 +1969,13 @@ MonoBehaviour:
   - name: Elevator
     clip: {fileID: 8300000, guid: 68084c2365e69466998acefa5fb429f6, type: 3}
     volume: 0.2
-    pitch: 0.2
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: WakeUp
+    clip: {fileID: 8300000, guid: 20322f3ef815c438eb12df4738bcaaad, type: 3}
+    volume: 0.2
+    pitch: 1
     loop: 0
     source: {fileID: 0}
   announcerSounds:
