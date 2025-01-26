@@ -17,17 +17,22 @@ public class GameOverManager : MonoBehaviour
         Instance = this;
     }
 
-    public void StartGameover(){
+    public void StartGameover()
+    {
         blackOverlay.DOFade(0f, 1f);
-        
+
         StartCoroutine(StartGameoverCoroutine());
     }
-    
-    private IEnumerator StartGameoverCoroutine(){
+
+    private IEnumerator StartGameoverCoroutine()
+    {
         blackOverlay.DOFade(1f, 1f);
-        
+
+        AudioManager.Instance.StopLoopingFadeOut("Elevator", 1);
+        AudioManager.Instance.StopLoopingFadeOut("Soundtrack", 1);
+
         yield return new WaitForSeconds(1f);
-        
+
         GameOverFinished?.Invoke();
     }
 }
