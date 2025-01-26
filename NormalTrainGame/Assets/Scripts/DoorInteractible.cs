@@ -25,6 +25,8 @@ public class DoorInteractible : MonoBehaviour
 
     public void ToggleDoor()
     {
+        AudioManager.Instance.Play("Door");
+
         if (!_isDoorOpen)
         {
             if(GameloopManager.Instance.CurrentLevel < minimumLevel || alwaysLocked)
