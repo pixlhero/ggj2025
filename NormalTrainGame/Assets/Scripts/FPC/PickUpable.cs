@@ -45,9 +45,7 @@ public class Pickupable : MonoBehaviour
         .SetEase(Ease.InOutSine);    // smooth back-and-forth
     }
 
-    /// <summary>
     /// Called when the player picks this object up.
-    /// </summary>
     public void OnPickUp(Transform holdParent)
     {
         isPickedUp = true;
@@ -71,9 +69,7 @@ public class Pickupable : MonoBehaviour
         transform.localRotation = Quaternion.identity;
     }
 
-    /// <summary>
     /// Called when the player drops this object.
-    /// </summary>
     public void OnDrop()
     {
         isPickedUp = false;
@@ -87,8 +83,12 @@ public class Pickupable : MonoBehaviour
         // Stop baby crying
         AudioManager.Instance.StopLoopingSound("BabyCry");
 
-        // Play baby sendoff
-        AudioManager.Instance.Play("BabySendoff");
+        // Array of possible audio clips
+        string[] babyClips = { "BabySendoff", "BabyYeet1", "BabyYeet2", "BabyYeet3" };
+
+        // Pick one of them at random
+        int randomIndex = UnityEngine.Random.Range(0, babyClips.Length);
+        AudioManager.Instance.Play(babyClips[randomIndex]);
 
         // Kill the rocking motion when dropped
         if (rockingTween != null && rockingTween.IsActive())
@@ -105,9 +105,8 @@ public class Pickupable : MonoBehaviour
         }
     }
 
-    /// <summary>
+
     /// Detect collisions and play a sound if appropriate.
-    /// </summary>
     private void OnCollisionEnter(Collision collision)
     {
         // Only play collision sound if:
