@@ -9,7 +9,7 @@ public class PosterMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        var noisyAngle = Mathf.PerlinNoise(Time.time *noiseSpeed, 0) * 2f - 1f;
+        var noisyAngle = Mathf.PerlinNoise(Time.time * noiseSpeed, 3) * 2f - 1f;
         transform.localRotation = Quaternion.Euler(0, 0, noisyAngle * angle);
     }
 }
