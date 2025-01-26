@@ -28,7 +28,7 @@ public class GameloopManager : MonoBehaviour
     public int score;
     
     private int[] maxBabies = new int[]{6, 11, 20, 31};
-    private float [] timePerBaby = new float[]{15, 10, 7, 4};
+    private float [] timePerBaby = new float[]{10, 7, 4, 2};
     
     public int CurrentLevel = 0;
 
