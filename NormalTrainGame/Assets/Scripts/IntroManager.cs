@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.InputSystem;
 
 public class IntroManager : MonoBehaviour
 {
@@ -16,7 +17,6 @@ public class IntroManager : MonoBehaviour
     [SerializeField] private Transform playerCamera;
 
     [SerializeField] private GameObject player;
-    [SerializeField] private GameObject startText;
     
     [SerializeField] private GameObject startGameUI;
     
@@ -30,11 +30,27 @@ public class IntroManager : MonoBehaviour
     
     public GameObject middleDot;
     
+    public CanvasGroup creditsCanvas;
+    private bool _showingCredits;
+    
     private bool _hasThrownBaby;
     
     private void Awake() {
-        startText.SetActive(false);
+        startGameUI.SetActive(false);
         introCameraWrapper.gameObject.SetActive(false);
+        
+        Cursor.visible = false;
+    }
+    
+    private void Update() {
+        if(Input.GetKeyDown(KeyCode.C) && !_showingCredits)
+        {
+            _showingCredits = true;
+            var sequence = DOTween.Sequence();
+            sequence.Insert(0, creditsCanvas.DOFade(1f, 0.5f));
+            sequence.Insert(5f, creditsCanvas.DOFade(0f, 0.5f));
+            sequence.onComplete += () => {_showingCredits = false;};
+        }
     }
 
     public void StartIntro()
@@ -69,11 +85,11 @@ public class IntroManager : MonoBehaviour
         screenSpaceUI.transform.localScale = Vector3.zero;
         screenSpaceUI.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack);
 
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(2f);
 
-        startText.SetActive(true);
+        startGameUI.SetActive(true);
         
-        yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.E));
+        yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.E) && !_showingCredits);
 
         startGameUI.SetActive(false);
         
@@ -103,7 +119,7 @@ public class IntroManager : MonoBehaviour
         playerNpcModel.SetActive(false);
         introCameraWrapper.gameObject.SetActive(false);
 
-        startText.SetActive(false);
+        startGameUI.SetActive(false);
         player.SetActive(true);
         middleDot.SetActive(true);
         
