@@ -6,6 +6,9 @@ using UnityEngine.UI;
 
 public class GameloopManager : MonoBehaviour
 {
+    [SerializeField] private Color redAmbientColor;
+    private Color standardAmbientColor;
+
     public DoorInteractible[] doors;
 
     public event Action TimeRanOut;
@@ -56,6 +59,8 @@ public class GameloopManager : MonoBehaviour
         {
             door.Opened += () => OnOpenedDoor(door);
         }
+        
+        standardAmbientColor = RenderSettings.ambientLight;
     }
 
     private void Update()
@@ -85,6 +90,7 @@ public class GameloopManager : MonoBehaviour
 
     public void StartGameLoop()
     {
+
         scoreUI.SetActive(true);
         secondsLeft = maxTime;
 
@@ -94,6 +100,9 @@ public class GameloopManager : MonoBehaviour
 
         AudioManager.Instance.StopLoopingFadeOut("Elevator", 1);
         AudioManager.Instance.PlayLoopingSound("Soundtrack");
+        
+        // Change Ambient Color
+        RenderSettings.ambientLight = redAmbientColor;
     }
 
     public void ResetScore()
@@ -132,6 +141,7 @@ public class GameloopManager : MonoBehaviour
 
                 AudioManager.Instance.StopLoopingFadeOut("Soundtrack", 1);
                 AudioManager.Instance.StartLoopingFadeIn("Elevator", .2f, .5f);
+                RenderSettings.ambientLight = standardAmbientColor;
 
                 scoreUI.SetActive(false);
                 timeUI.SetActive(false);
@@ -148,6 +158,7 @@ public class GameloopManager : MonoBehaviour
         {
             AudioManager.Instance.StopLoopingFadeOut("Elevator", 1);
             AudioManager.Instance.StartLoopingFadeIn("Soundtrack", .2f, .5f);
+            RenderSettings.ambientLight = redAmbientColor;
 
             _isInCooldownMode = false;
             secondsLeft = maxTime;
