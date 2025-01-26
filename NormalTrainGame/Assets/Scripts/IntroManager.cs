@@ -106,6 +106,7 @@ public class IntroManager : MonoBehaviour
         // START INTRO CINEMATIC
         yield return new WaitForSeconds(1f);
         playerAnimator.Play("Wakeup");
+        AudioManager.Instance.Play("WakeUp");
         darkOverlay.DOFade(0, 0.2f);
         
         yield return new WaitForSeconds(1f);
@@ -148,8 +149,6 @@ public class IntroManager : MonoBehaviour
         blinkSequence.AppendInterval(1f);
         
         yield return new WaitUntil(() => !blinkSequence.active || blinkSequence.IsComplete());
-
-        AudioManager.Instance.Play("WakeUp");
 
         darkOverlay.DOFade(0, 0.2f).SetEase(Ease.InOutSine);
         
