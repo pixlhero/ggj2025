@@ -93,7 +93,7 @@ public class GameloopManager : MonoBehaviour
         middleDot.SetActive(true);
 
         AudioManager.Instance.StopLoopingFadeOut("Elevator", 1);
-        AudioManager.Instance.StartLoopingFadeIn("Soundtrack", .25f, 1);
+        AudioManager.Instance.PlayLoopingSound("Soundtrack");
     }
 
     public void ResetScore()
@@ -147,7 +147,7 @@ public class GameloopManager : MonoBehaviour
         if (door == doors[_currentLevel - 1])
         {
             AudioManager.Instance.StopLoopingFadeOut("Elevator", 1);
-            AudioManager.Instance.StartLoopingFadeIn("Soundtrack", .25f, .5f);
+            AudioManager.Instance.StartLoopingFadeIn("Soundtrack", .2f, .5f);
 
             _isInCooldownMode = false;
             secondsLeft = maxTime;

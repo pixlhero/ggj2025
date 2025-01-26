@@ -1828,25 +1828,25 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: FootStep1
     clip: {fileID: 8300000, guid: 35892a00ce397402c8ebc9599b3f1783, type: 3}
-    volume: 0.2
+    volume: 0.1
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: FootStep2
     clip: {fileID: 8300000, guid: 700fe07d5d0ab4925ae033875fe06faf, type: 3}
-    volume: 0.2
+    volume: 0.1
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: BabyThump
     clip: {fileID: 8300000, guid: c38eff5aab0154a0186372c595daa002, type: 3}
-    volume: 0.5
+    volume: 0.3
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: AmbianceTrain
     clip: {fileID: 8300000, guid: 370e52593f1674a2d9f39d19c9991772, type: 3}
-    volume: 0.7
+    volume: 0.2
     pitch: 1
     loop: 0
     source: {fileID: 0}
@@ -1858,31 +1858,31 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: BigMetalThump
     clip: {fileID: 8300000, guid: be097300ded42485d85b10bfadb3b590, type: 3}
-    volume: 0.5
+    volume: 0.3
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: BabyCry
     clip: {fileID: 8300000, guid: 89057074ed96a4c8993a2b2b962dd159, type: 3}
-    volume: 0.5
+    volume: 0.3
     pitch: 1
     loop: 1
     source: {fileID: 0}
   - name: BabySendoff
     clip: {fileID: 8300000, guid: c871f709be3f746eb835e1d7d6a4cc98, type: 3}
-    volume: 0.5
+    volume: 0.3
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: DampThud
     clip: {fileID: 8300000, guid: 72507e43817c04aa48f4bd9f142c2364, type: 3}
-    volume: 0.5
+    volume: 0.3
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: Yamanote
     clip: {fileID: 8300000, guid: dad608d33761246e7b20a97c426f1821, type: 3}
-    volume: 0.1
+    volume: 0
     pitch: 1
     loop: 0
     source: {fileID: 0}
@@ -1896,6 +1896,18 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 191493e0c18d74dc798fecc4872ce9d9, type: 3}
     volume: 1
     pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Soundtrack
+    clip: {fileID: 8300000, guid: 31e980678e4304a9d8a6bd3a78377af3, type: 3}
+    volume: 0.2
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Elevator
+    clip: {fileID: 8300000, guid: 68084c2365e69466998acefa5fb429f6, type: 3}
+    volume: 0.2
+    pitch: 0.2
     loop: 0
     source: {fileID: 0}
   announcerSounds:
@@ -2281,11 +2293,6 @@ Transform:
 Transform:
   m_CorrespondingSourceObject: {fileID: 8654651879769157106, guid: 41aa03ab64709439aaa117e234409250, type: 3}
   m_PrefabInstance: {fileID: 2130887926}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1021322831 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 469147365346630882, guid: 632690221fc1c4c48a63e7258dc65e01, type: 3}
-  m_PrefabInstance: {fileID: 6347931991447436204}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1043423082
 PrefabInstance:
@@ -3484,10 +3491,6 @@ PrefabInstance:
       propertyPath: playerCamera
       value: 
       objectReference: {fileID: 1391113965}
-    - target: {fileID: 759560841373794484, guid: c8d018aeda76448b79f2c3e43f04fb62, type: 3}
-      propertyPath: playerNpcModel
-      value: 
-      objectReference: {fileID: 1021322831}
     - target: {fileID: 2606646841141538155, guid: c8d018aeda76448b79f2c3e43f04fb62, type: 3}
       propertyPath: m_LocalPosition.x
       value: 19.86

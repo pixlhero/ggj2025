@@ -264,8 +264,6 @@ public class AudioManager : MonoBehaviour
             return;
         }
 
-        Debug.Log("Stopping sound: " + soundName);
-
         // If a fade tween is already running on this sound, kill it
         if (s.fadeTween != null && s.fadeTween.IsActive())
         {
@@ -277,13 +275,12 @@ public class AudioManager : MonoBehaviour
                               .SetUpdate(false)
                               .OnUpdate(() =>
                               {
-                                  Debug.Log("Current volume: " + s.source.volume);
+                                  // Optionally do something while fading
                               })
                               .OnComplete(() =>
                               {
                                   s.source.volume = 0f;
                                   s.source.Stop();
-                                  Debug.Log("Sound is stopped: " + s.source.clip.name);
                               });
     }
 }

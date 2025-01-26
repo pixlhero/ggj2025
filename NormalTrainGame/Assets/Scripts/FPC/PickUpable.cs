@@ -132,11 +132,9 @@ public class Pickupable : MonoBehaviour
                     AudioManager.Instance.Play("DampThud");
                     break;
                 case "Thump":
-                    Debug.Log("Play Thump");
                     AudioManager.Instance.Play("Thump");
                     break;
                 case "Oof":
-                    Debug.Log("Play Oof");
                     AudioManager.Instance.PlayRandomizedPitch("Oof");
                     break;
                 default:
