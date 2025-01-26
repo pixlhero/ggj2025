@@ -1,9 +1,12 @@
 using System.Collections;
 using UnityEngine;
 using DG.Tweening;
+using System;
 
 public class DoorInteractible : MonoBehaviour
 {
+    public event Action Opened;
+
     [SerializeField] private float slideDistance = 1f;
     [SerializeField] private float slideDuration = 1f;
     
@@ -28,6 +31,8 @@ public class DoorInteractible : MonoBehaviour
             {
                 return;
             }
+            
+            Opened?.Invoke();
 
             // Slide the door to the right by slideDistance
             transform.DOMove(_closedPosition + new Vector3(0f, 0f, slideDistance), slideDuration);

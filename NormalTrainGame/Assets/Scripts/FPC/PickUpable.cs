@@ -55,7 +55,7 @@ public class Pickupable : MonoBehaviour
 
         rb.isKinematic = true;
         rb.useGravity = false;
-        gameObject.GetComponent<Collider>().enabled = false;
+        gameObject.GetComponentInChildren<Collider>().enabled = false;
 
         var goHolder = holdParent.transform.Find("GameObjectHolder");
         transform.SetParent(goHolder);
@@ -82,7 +82,7 @@ public class Pickupable : MonoBehaviour
 
         rb.isKinematic = false;
         rb.useGravity = true;
-        gameObject.GetComponent<Collider>().enabled = true;
+        gameObject.GetComponentInChildren<Collider>().enabled = true;
 
         // Stop baby crying
         AudioManager.Instance.StopLoopingSound("BabyCry");
