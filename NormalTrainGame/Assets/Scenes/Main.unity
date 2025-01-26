@@ -1984,7 +1984,7 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     source: {fileID: 0}
-  - name: BabyYeet2
+  - name: BabyYeet1
     clip: {fileID: 8300000, guid: 9f7c1d99614334f03bbb70cc8e5e9b63, type: 3}
     volume: 0.25
     pitch: 1
