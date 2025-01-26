@@ -107,6 +107,7 @@ public class IntroManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
         playerAnimator.Play("Wakeup");
         AudioManager.Instance.Play("WakeUp");
+        AudioManager.Instance.StartLoopingFadeIn("LongBabyCry", .15f, .5f);
         darkOverlay.DOFade(0, 0.2f);
         
         yield return new WaitForSeconds(1f);

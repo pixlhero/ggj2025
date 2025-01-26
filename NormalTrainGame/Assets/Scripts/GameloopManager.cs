@@ -29,10 +29,10 @@ public class GameloopManager : MonoBehaviour
     public GameObject middleDot;
 
     public int score;
-    
-    private int[] maxBabies = new int[]{6, 11, 20, 31};
-    private float [] timePerBaby = new float[]{10, 7, 4, 2};
-    
+
+    private int[] maxBabies = new int[] { 6, 11, 20, 31 };
+    private float[] timePerBaby = new float[] { 10, 7, 4, 2 };
+
     public int CurrentLevel = 0;
 
     public float secondsLeft;
@@ -40,7 +40,7 @@ public class GameloopManager : MonoBehaviour
     private Sequence _uiAnimationSequence;
 
     private bool _isInCooldownMode = false;
-    
+
     private float maxTime => timePerBaby[CurrentLevel];
 
     private void Awake()
@@ -59,7 +59,7 @@ public class GameloopManager : MonoBehaviour
         {
             door.Opened += () => OnOpenedDoor(door);
         }
-        
+
         standardAmbientColor = RenderSettings.ambientLight;
     }
 
@@ -100,7 +100,8 @@ public class GameloopManager : MonoBehaviour
 
         AudioManager.Instance.StopLoopingFadeOut("Elevator", 1);
         AudioManager.Instance.PlayLoopingSound("Soundtrack");
-        
+        AudioManager.Instance.StartLoopingFadeIn("LongBabyCry", .15f, .5f);
+
         // Change Ambient Color
         RenderSettings.ambientLight = redAmbientColor;
     }
@@ -140,7 +141,8 @@ public class GameloopManager : MonoBehaviour
                 _isInCooldownMode = true;
 
                 AudioManager.Instance.StopLoopingFadeOut("Soundtrack", 1);
-                AudioManager.Instance.StartLoopingFadeIn("Elevator", .2f, .5f);
+                AudioManager.Instance.StopLoopingFadeOut("LongBabyCry", .5f);
+                AudioManager.Instance.StartLoopingFadeIn("Elevator", .15f, .5f);
                 RenderSettings.ambientLight = standardAmbientColor;
 
                 scoreUI.SetActive(false);
@@ -157,7 +159,8 @@ public class GameloopManager : MonoBehaviour
         if (door == doors[CurrentLevel - 1])
         {
             AudioManager.Instance.StopLoopingFadeOut("Elevator", 1);
-            AudioManager.Instance.StartLoopingFadeIn("Soundtrack", .2f, .5f);
+            AudioManager.Instance.StartLoopingFadeIn("Soundtrack", .15f, .5f);
+            AudioManager.Instance.StartLoopingFadeIn("LongBabyCry", .15f, .5f);
             RenderSettings.ambientLight = redAmbientColor;
 
             _isInCooldownMode = false;
