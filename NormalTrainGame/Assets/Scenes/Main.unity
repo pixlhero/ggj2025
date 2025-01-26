@@ -1984,6 +1984,24 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     source: {fileID: 0}
+  - name: BabyYeet2
+    clip: {fileID: 8300000, guid: 9f7c1d99614334f03bbb70cc8e5e9b63, type: 3}
+    volume: 0.25
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: BabyYeet2
+    clip: {fileID: 8300000, guid: 75a02091a1a244a60a68af13f8120630, type: 3}
+    volume: 0.25
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: BabyYeet3
+    clip: {fileID: 8300000, guid: 38acf641926d146f599d76bfd394c73d, type: 3}
+    volume: 0.25
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
   announcerSounds:
   - name: FirstBlood
     clip: {fileID: 8300000, guid: 2f55c02bc35bb48379fe34797499eef6, type: 3}
