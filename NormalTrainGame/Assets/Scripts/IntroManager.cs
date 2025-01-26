@@ -8,6 +8,10 @@ public class IntroManager : MonoBehaviour
     public event Action IntroFinished;
 
     [SerializeField] private Transform introCameraWrapper;
+    
+    [SerializeField] private Transform introCamPos;
+    
+    [SerializeField] private Animator playerAnimator;
 
     [SerializeField] private Transform playerCamera;
 
@@ -21,7 +25,9 @@ public class IntroManager : MonoBehaviour
     [SerializeField] private GameObject playerNpcModel;
     
     [SerializeField] private CanvasGroup darkOverlay;
-
+    
+    [SerializeField] private Transform wakeupCamPos;
+    
     public GameObject middleDot;
     
     private bool _hasThrownBaby;
@@ -39,11 +45,29 @@ public class IntroManager : MonoBehaviour
 
     private IEnumerator StartIntroCoroutine()
     {
-        darkOverlay.DOFade(0, 1f);
-
         _hasThrownBaby = false;
         player.SetActive(false);
         introCameraWrapper.gameObject.SetActive(true);
+        introCameraWrapper.position = wakeupCamPos.position;
+        introCameraWrapper.rotation = wakeupCamPos.rotation;
+
+        screenSpaceUI.SetActive(false);
+        
+        yield return new WaitForSeconds(1f);
+        playerAnimator.Play("Wakeup");
+        darkOverlay.DOFade(0, 0.2f);
+        
+        yield return new WaitForSeconds(1f);
+        
+        var sequenceCam1 = DOTween.Sequence();
+        sequenceCam1.Insert(0, introCameraWrapper.transform.DOMove(introCamPos.position, 1.5f).SetEase(Ease.InOutSine));
+        sequenceCam1.Insert(0, introCameraWrapper.transform.DORotate(introCamPos.rotation.eulerAngles, 1.5f).SetEase(Ease.InOutSine));
+
+        yield return new WaitForSeconds(2f);
+
+        screenSpaceUI.SetActive(true);
+        screenSpaceUI.transform.localScale = Vector3.zero;
+        screenSpaceUI.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack);
 
         yield return new WaitForSeconds(4f);
 
@@ -52,7 +76,10 @@ public class IntroManager : MonoBehaviour
         yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.E));
 
         startGameUI.SetActive(false);
-        screenSpaceUI.SetActive(false);
+        
+        screenSpaceUI.transform.DOScale(Vector3.zero, 0.5f)
+            .SetEase(Ease.InBack)
+            .OnComplete(() => screenSpaceUI.SetActive(false));
 
         var sequence = DOTween.Sequence(); 
         sequence.Insert(0, introCameraWrapper.transform.DOMove(playerCamera.position, 1f).SetEase(Ease.InOutSine));
