@@ -131,6 +131,14 @@ public class Pickupable : MonoBehaviour
                 case "DampThud":
                     AudioManager.Instance.Play("DampThud");
                     break;
+                case "Thump":
+                    Debug.Log("Play Thump");
+                    AudioManager.Instance.Play("Thump");
+                    break;
+                case "Oof":
+                    Debug.Log("Play Oof");
+                    AudioManager.Instance.PlayRandomizedPitch("Oof");
+                    break;
                 default:
                     // Fallback sound if the tag doesn't match known ones
                     AudioManager.Instance.Play("BabyThump");
