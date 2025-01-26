@@ -149,6 +149,8 @@ public class IntroManager : MonoBehaviour
         
         yield return new WaitUntil(() => !blinkSequence.active || blinkSequence.IsComplete());
 
+        AudioManager.Instance.Play("WakeUp");
+
         darkOverlay.DOFade(0, 0.2f).SetEase(Ease.InOutSine);
         
         playerNpcModel.SetActive(false);
