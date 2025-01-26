@@ -36,16 +36,7 @@ public class AudioManager : MonoBehaviour
 
     private void Awake()
     {
-        // Enforce singleton pattern
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
         Instance = this;
-
-        // Make sure the AudioManager persists across scene loads
-        DontDestroyOnLoad(gameObject);
 
         // Create an AudioSource component for each sound
         foreach (Sound s in sounds)
