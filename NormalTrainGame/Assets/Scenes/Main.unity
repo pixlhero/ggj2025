@@ -1932,7 +1932,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: BabySendoff
     clip: {fileID: 8300000, guid: c871f709be3f746eb835e1d7d6a4cc98, type: 3}
-    volume: 0.3
+    volume: 0.2
     pitch: 1
     loop: 0
     source: {fileID: 0}
