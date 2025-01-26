@@ -5351,6 +5351,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31b877738cd7d437ebc88f0da2d4b815, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  redAmbientColor: {r: 1, g: 0.649455, b: 0.6273585, a: 1}
   doors:
   - {fileID: 2113201768}
   - {fileID: 1996236370}
