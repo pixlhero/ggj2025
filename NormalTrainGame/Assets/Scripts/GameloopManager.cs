@@ -6,37 +6,37 @@ using UnityEngine.UI;
 
 public class GameloopManager : MonoBehaviour
 {
-    public DoorInteractible[] doors;    
+    public DoorInteractible[] doors;
 
     public event Action TimeRanOut;
-    
+
     public event Action GotAllBabies;
 
     public static GameloopManager Instance;
-    
+
     public GameObject scoreUI;
     public TMP_Text scoreText;
-    
+
     public TMP_Text timeLeft;
-    
+
     public GameObject timeUI;
-    
+
     public Image timeBarFilled;
-    
+
     public GameObject middleDot;
 
     public int score;
-    
-    private int[] maxBabies = new int[]{6, 11, 20, 31};
-    
+
+    private int[] maxBabies = new int[] { 6, 11, 20, 31 };
+
     private int _currentLevel = 0;
-    
+
     public float secondsLeft;
-    
+
     private Sequence _uiAnimationSequence;
-    
+
     private bool _isInCooldownMode = false;
-    
+
     private float maxTime = 15f;
 
     private void Awake()
@@ -50,19 +50,20 @@ public class GameloopManager : MonoBehaviour
         scoreUI.SetActive(false);
         middleDot.SetActive(false);
         scoreText.text = "Babies Left: " + maxBabies;
-        
+
         foreach (var door in doors)
         {
             door.Opened += () => OnOpenedDoor(door);
         }
     }
-    
-    private void Update() {
-        if(GameManager.Instance.gameState != GameManager.GameState.GAMEPLAY) return;
-        
-        if(_isInCooldownMode)
+
+    private void Update()
+    {
+        if (GameManager.Instance.gameState != GameManager.GameState.GAMEPLAY) return;
+
+        if (_isInCooldownMode)
             return;
-        
+
         timeBarFilled.fillAmount = secondsLeft / maxTime;
 
         if (secondsLeft > 0)
@@ -80,15 +81,18 @@ public class GameloopManager : MonoBehaviour
             TimeRanOut?.Invoke();
         }
     }
-    
+
     public void StartGameLoop()
     {
         scoreUI.SetActive(true);
         secondsLeft = 10;
-        
+
         timeUI.SetActive(true);
-        
+
         middleDot.SetActive(true);
+
+        AudioManager.Instance.StopLoopingFadeOut("Elevator", 1);
+        AudioManager.Instance.StartLoopingFadeIn("Soundtrack", .25f, 1);
     }
 
     public void ResetScore()
@@ -100,11 +104,11 @@ public class GameloopManager : MonoBehaviour
     {
         score += points;
         AudioManager.Instance.PlayCalculatedAnnouncerSound(score);
-        
+
         secondsLeft = maxTime;
-        
+
         scoreText.text = "Babies Left: " + (maxBabies[_currentLevel] - score);
-            
+
         _uiAnimationSequence?.Kill();
         _uiAnimationSequence = DOTween.Sequence();
 
@@ -113,10 +117,10 @@ public class GameloopManager : MonoBehaviour
         _uiAnimationSequence.Append(scoreText.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.Linear));
         _uiAnimationSequence.Insert(0, timeUI.transform.DOScale(Vector3.one * 1.5f, 0.1f).SetEase(Ease.Linear));
         _uiAnimationSequence.Insert(0.1f, timeUI.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.Linear));
-        
-        if(score >= maxBabies[_currentLevel])
+
+        if (score >= maxBabies[_currentLevel])
         {
-            if(_currentLevel >= 3)
+            if (_currentLevel >= 3)
             {
                 GotAllBabies?.Invoke();
             }
@@ -124,19 +128,26 @@ public class GameloopManager : MonoBehaviour
             {
                 _currentLevel++;
                 _isInCooldownMode = true;
+
+                AudioManager.Instance.StopLoopingFadeOut("Soundtrack", 1);
+                AudioManager.Instance.StartLoopingFadeIn("Elevator", .2f, .5f);
+
                 scoreUI.SetActive(false);
                 timeUI.SetActive(false);
             }
         }
     }
-    
+
     private void OnOpenedDoor(DoorInteractible door)
     {
-        if(!_isInCooldownMode)
+        if (!_isInCooldownMode)
             return;
-        
-        if(door == doors[_currentLevel - 1])
+
+        if (door == doors[_currentLevel - 1])
         {
+            AudioManager.Instance.StopLoopingFadeOut("Elevator", 1);
+            AudioManager.Instance.StartLoopingFadeIn("Soundtrack", .25f, .5f);
+
             _isInCooldownMode = false;
             secondsLeft = maxTime;
             score = 0;

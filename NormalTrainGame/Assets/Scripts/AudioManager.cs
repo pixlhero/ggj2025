@@ -1,6 +1,9 @@
 using UnityEngine;
 using System;
-using System.Collections; // Need this for Coroutines
+using System.Collections;
+using DG.Tweening; // <-- Include DOTween
+// Note: We still need this for Coroutines used elsewhere, like the random announcer coroutine
+using System.Collections.Generic;
 
 public class AudioManager : MonoBehaviour
 {
@@ -19,11 +22,13 @@ public class AudioManager : MonoBehaviour
 
         [HideInInspector]
         public AudioSource source;           // The AudioSource for playing this sound
+        // (Optional) You can store a reference to a running Tween if you want to cancel or manage it later
+        [HideInInspector]
+        public Tween fadeTween;
     }
 
     // An array of sound objects that you can configure in the Inspector
     public Sound[] sounds;
-
     public Sound[] announcerSounds;
 
     // Store reference to coroutine so we can stop it if needed
@@ -189,9 +194,7 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    /// <summary>
     /// Stop playing random announcer sounds.
-    /// </summary>
     public void StopRandomInterval()
     {
         // If the coroutine is running, stop it
@@ -202,10 +205,8 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    /// <summary>
     /// Coroutine that plays a random announcer sound
     /// at random intervals between 30 and 60 seconds.
-    /// </summary>
     private IEnumerator RandomIntervalCoroutine(string soundName)
     {
         while (true)
@@ -217,5 +218,72 @@ public class AudioManager : MonoBehaviour
             // Play a random announcer sound
             Play(soundName);
         }
+    }
+
+    /// <summary>
+    /// Starts a looped sound from volume = 0 to targetVolume using DOTween for fading in.
+    /// </summary>
+    public void StartLoopingFadeIn(string soundName, float targetVolume, float fadeDuration)
+    {
+        Sound s = Array.Find(sounds, sound => sound.name == soundName);
+        if (s == null)
+        {
+            Debug.LogWarning("AudioManager: Sound not found: " + soundName);
+            return;
+        }
+
+        // If a fade tween is already running on this sound, kill it
+        if (s.fadeTween != null && s.fadeTween.IsActive())
+        {
+            s.fadeTween.Kill();
+        }
+
+        // Set the source for looping, reset volume, and play
+        s.source.loop = true;
+        s.source.volume = 0f;
+        s.source.Play();
+
+        // Use DOTween to fade from 0 to targetVolume
+        s.fadeTween = s.source.DOFade(targetVolume, fadeDuration)
+                              .SetUpdate(false)   // SetUpdate(false) -> normal time, SetUpdate(true) -> ignore timescale
+                              .OnComplete(() =>
+                              {
+                                  // Optionally do something when fade-in completes
+                              });
+    }
+
+    /// <summary>
+    /// Fades out a looped sound to volume = 0 using DOTween, then stops it.
+    /// </summary>
+    public void StopLoopingFadeOut(string soundName, float fadeDuration)
+    {
+        Sound s = Array.Find(sounds, sound => sound.name == soundName);
+        if (s == null)
+        {
+            Debug.LogWarning("AudioManager: Sound not found: " + soundName);
+            return;
+        }
+
+        Debug.Log("Stopping sound: " + soundName);
+
+        // If a fade tween is already running on this sound, kill it
+        if (s.fadeTween != null && s.fadeTween.IsActive())
+        {
+            s.fadeTween.Kill();
+        }
+
+        // Fade out to volume=0 and stop the AudioSource at the end
+        s.fadeTween = s.source.DOFade(0f, fadeDuration)
+                              .SetUpdate(false)
+                              .OnUpdate(() =>
+                              {
+                                  Debug.Log("Current volume: " + s.source.volume);
+                              })
+                              .OnComplete(() =>
+                              {
+                                  s.source.volume = 0f;
+                                  s.source.Stop();
+                                  Debug.Log("Sound is stopped: " + s.source.clip.name);
+                              });
     }
 }
