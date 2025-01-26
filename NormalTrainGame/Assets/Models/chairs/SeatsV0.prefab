@@ -378,7 +378,7 @@ GameObject:
   - component: {fileID: 4959905967762885759}
   m_Layer: 0
   m_Name: Seat
-  m_TagString: DampThud
+  m_TagString: Thump
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -702,7 +702,7 @@ GameObject:
   - component: {fileID: 964631147170317528}
   m_Layer: 0
   m_Name: Back
-  m_TagString: DampThud
+  m_TagString: Thump
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

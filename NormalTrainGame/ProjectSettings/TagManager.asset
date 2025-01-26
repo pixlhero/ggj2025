@@ -8,6 +8,8 @@ TagManager:
   - Metal
   - BigMetal
   - DampThud
+  - Thump
+  - Oof
   layers:
   - Default
   - TransparentFX

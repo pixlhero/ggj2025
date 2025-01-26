@@ -8,9 +8,33 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1792132990762816710, guid: 3af7202a3d78c468c8fd93c5868fb1b7, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3461266941757963773, guid: 3af7202a3d78c468c8fd93c5868fb1b7, type: 3}
       propertyPath: m_Name
       value: NPC1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4409235374104382060, guid: 3af7202a3d78c468c8fd93c5868fb1b7, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5952541
+      objectReference: {fileID: 0}
+    - target: {fileID: 4409235374104382060, guid: 3af7202a3d78c468c8fd93c5868fb1b7, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.90627444
+      objectReference: {fileID: 0}
+    - target: {fileID: 4409235374104382060, guid: 3af7202a3d78c468c8fd93c5868fb1b7, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.5952541
+      objectReference: {fileID: 0}
+    - target: {fileID: 4409235374104382060, guid: 3af7202a3d78c468c8fd93c5868fb1b7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.145
+      objectReference: {fileID: 0}
+    - target: {fileID: 4409235374104382060, guid: 3af7202a3d78c468c8fd93c5868fb1b7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.784
       objectReference: {fileID: 0}
     - target: {fileID: 6846108154536920712, guid: 3af7202a3d78c468c8fd93c5868fb1b7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -52,13 +76,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6949015191403133427, guid: 3af7202a3d78c468c8fd93c5868fb1b7, type: 3}
+      propertyPath: m_TagString
+      value: Oof
+      objectReference: {fileID: 0}
     - target: {fileID: 7918598632014413741, guid: 3af7202a3d78c468c8fd93c5868fb1b7, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: ae3bf77406fad423583711d6ca2cf9f4, type: 2}
     - target: {fileID: 8107525104923937046, guid: 3af7202a3d78c468c8fd93c5868fb1b7, type: 3}
       propertyPath: m_TagString
-      value: DampThud
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
