@@ -30,7 +30,7 @@ public class GameloopManager : MonoBehaviour
     private int[] maxBabies = new int[]{6, 11, 20, 31};
     private float [] timePerBaby = new float[]{15, 10, 7, 4};
     
-    private int _currentLevel = 0;
+    public int CurrentLevel = 0;
 
     public float secondsLeft;
 
@@ -38,7 +38,7 @@ public class GameloopManager : MonoBehaviour
 
     private bool _isInCooldownMode = false;
     
-    private float maxTime => timePerBaby[_currentLevel];
+    private float maxTime => timePerBaby[CurrentLevel];
 
     private void Awake()
     {
@@ -108,7 +108,7 @@ public class GameloopManager : MonoBehaviour
 
         secondsLeft = maxTime;
 
-        scoreText.text = "Babies Left: " + (maxBabies[_currentLevel] - score);
+        scoreText.text = "Babies Left: " + (maxBabies[CurrentLevel] - score);
 
         _uiAnimationSequence?.Kill();
         _uiAnimationSequence = DOTween.Sequence();
@@ -119,15 +119,15 @@ public class GameloopManager : MonoBehaviour
         _uiAnimationSequence.Insert(0, timeUI.transform.DOScale(Vector3.one * 1.5f, 0.1f).SetEase(Ease.Linear));
         _uiAnimationSequence.Insert(0.1f, timeUI.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.Linear));
 
-        if (score >= maxBabies[_currentLevel])
+        if (score >= maxBabies[CurrentLevel])
         {
-            if (_currentLevel >= 3)
+            if (CurrentLevel >= 3)
             {
                 GotAllBabies?.Invoke();
             }
             else
             {
-                _currentLevel++;
+                CurrentLevel++;
                 _isInCooldownMode = true;
 
                 AudioManager.Instance.StopLoopingFadeOut("Soundtrack", 1);
@@ -144,7 +144,7 @@ public class GameloopManager : MonoBehaviour
         if (!_isInCooldownMode)
             return;
 
-        if (door == doors[_currentLevel - 1])
+        if (door == doors[CurrentLevel - 1])
         {
             AudioManager.Instance.StopLoopingFadeOut("Elevator", 1);
             AudioManager.Instance.StartLoopingFadeIn("Soundtrack", .2f, .5f);
@@ -154,7 +154,7 @@ public class GameloopManager : MonoBehaviour
             score = 0;
             scoreUI.SetActive(true);
             timeUI.SetActive(true);
-            scoreText.text = "Babies Left: " + (maxBabies[_currentLevel] - score);
+            scoreText.text = "Babies Left: " + (maxBabies[CurrentLevel] - score);
         }
     }
 }

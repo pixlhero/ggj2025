@@ -25,7 +25,7 @@ public class UIManager : MonoBehaviour
     {
         if(pickupObject.TryGetComponent(out DoorInteractible door))
         {
-            var cannotOpenBecauseOfScore = GameloopManager.Instance.score < door.miniumScore;
+            var cannotOpenBecauseOfScore = GameloopManager.Instance.CurrentLevel < door.minimumLevel;
             var alwaysLocked = door.alwaysLocked;
             
             if(cannotOpenBecauseOfScore)
